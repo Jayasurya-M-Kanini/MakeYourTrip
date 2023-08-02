@@ -20,8 +20,8 @@ namespace UserMicroService.Models
         public string? PhoneNumber { get; set; }
 
 
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
+        //[Required(ErrorMessage = "Email is required")]
+        //[EmailAddress(ErrorMessage = "Invalid email address")]
         public string? EmailId { get; set; }
     }
 }

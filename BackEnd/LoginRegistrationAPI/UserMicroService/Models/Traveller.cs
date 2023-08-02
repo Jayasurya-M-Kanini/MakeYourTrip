@@ -8,7 +8,7 @@ namespace UserMicroService.Models
     {
         [Key]
         public int TravellerId { get; set; }
-        [ForeignKey("TravellerIdId")]
+        [ForeignKey("TravellerId")]
         public User? User { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]

@@ -29,44 +29,34 @@ namespace UserMicroService.Services
         {
             UserDTO myUser = null;
             var hmac = new HMACSHA512();
-            user.User.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordClear ?? "1234"));
+            user.User.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordClear));
             user.User.PasswordKey = hmac.Key;
 
             user.User.Role = "Admin";
+            user.User.EmailId = user.EmailId;
 
-            var users = await _userRepo.GetAll();
-            if (users != null)
+            var admin = await _adminRepo.GetAll();
+            if (admin != null)
             {
-                var myAdminUser = users.FirstOrDefault(u => u.EmailId == user.EmailId);
-                if (myAdminUser != null)
+                var myAdmin = admin.FirstOrDefault(u => u.EmailId == user.EmailId && u.PhoneNumber == user.PhoneNumber);
+                if (myAdmin != null)
                 {
                     return null;
                 }
-                else
+            }
+
+                var userResult = await _userRepo.Add(user.User);
+                var adminResult = await _adminRepo.Add(user);
+                if (userResult != null && adminResult != null)
                 {
-                    var admin = await _adminRepo.GetAll();
-                    if (admin != null)
-                    {
-                        var myAdmin = admin.FirstOrDefault(u => u.EmailId == user.EmailId && u.PhoneNumber==user.PhoneNumber);
-                        if (myAdmin != null)
-                        {
-                            return null;
-                        }
-                    }
+                    myUser = new UserDTO();
+                    myUser.Id = userResult.UserId;
+                    myUser.EmailId = userResult.EmailId;
+                    myUser.Role = userResult.Role;
+                    myUser.Status = null;
+                    myUser.Token = _generateToken.GenerateToken(myUser);
                 }
-            }
-            var userResult = await _userRepo.Add(user.User);
-            var adminResult = await _adminRepo.Add(user);
-            if (userResult != null && adminResult != null)
-            {
-                myUser = new UserDTO();
-                myUser.Id = userResult.UserId;
-                myUser.EmailId = adminResult.EmailId;
-                myUser.Role = userResult.Role;
-                myUser.Status = null;
-                myUser.Token = _generateToken.GenerateToken(myUser);
-            }
-            return myUser;
+                return myUser;
         }
 
         public async Task<StatusDTO?> ChangeTravelAgentStatus(StatusDTO userApproval)

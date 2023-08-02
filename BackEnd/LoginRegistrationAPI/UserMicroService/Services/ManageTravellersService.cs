@@ -55,6 +55,8 @@ namespace UserMicroService.Services
             user.User.PasswordKey = hmac.Key;
 
             user.User.Role = "Traveller";
+            user.User.EmailId = user.EmailId;
+
 
             var users = await _userRepo.GetAll();
             if (users != null)

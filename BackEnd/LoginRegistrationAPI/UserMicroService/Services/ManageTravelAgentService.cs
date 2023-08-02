@@ -37,33 +37,22 @@ namespace UserMicroService.Services
         {
             UserDTO myUser = null;
             var hmac = new HMACSHA512();
-            user.User.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordClear ?? "1234"));
+            user.User.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordClear));
             user.User.PasswordKey = hmac.Key;
-
+            user.User.EmailId = user.EmailId;
             user.User.Role = "TravelAgent";
-
-            var users = await _userRepo.GetAll();
-            if (users != null)
+            user.Status = "UnApproved";
+            var admin = await _agentRepo.GetAll();
+            if (admin != null)
             {
-                var myAdminUser = users.FirstOrDefault(u => u.EmailId == user.EmailId);
-                if (myAdminUser != null)
+                var myAdmin = admin.FirstOrDefault(u => u.EmailId == user.EmailId && u.PhoneNumber == user.PhoneNumber);
+                if (myAdmin != null)
                 {
                     return null;
                 }
-                else
-                {
-                    var admin = await _agentRepo.GetAll();
-                    if (admin != null)
-                    {
-                        var myAdmin = admin.FirstOrDefault(u => u.EmailId == user.EmailId && u.PhoneNumber == user.PhoneNumber);
-                        if (myAdmin != null)
-                        {
-                            return null;
-                        }
-                    }
-                }
             }
-            var userResult = await _userRepo.Add(user.User);
+
+                var userResult = await _userRepo.Add(user.User);
             var adminResult = await _agentRepo.Add(user);
             if (userResult != null && adminResult != null)
             {

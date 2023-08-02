@@ -9,14 +9,17 @@ namespace UserMicroService.Services
     public class ManageUserService : IManageUser
     {
         private readonly IBaseCRUD<string, User> _userRepo;
+        private readonly IBaseCRUD<string, TravelAgent> _agentRepo;
+
         private readonly IGenerateToken _generateToken;
         private readonly IChangePassword _changePassword;
 
-        public ManageUserService(IBaseCRUD<string, User> userRepo,IGenerateToken generateToken,IChangePassword changePassword)
+        public ManageUserService(IBaseCRUD<string, User> userRepo,IGenerateToken generateToken, IBaseCRUD<string, TravelAgent> agentRepo,IChangePassword changePassword)
         { 
             _userRepo = userRepo;
             _generateToken = generateToken;
             _changePassword = changePassword;
+            _agentRepo = agentRepo;
         }
         public async Task<UserDTO> Login(LoginDTO loginDTO)
         {
@@ -24,19 +27,20 @@ namespace UserMicroService.Services
             var userData =await _userRepo.Get(loginDTO.EmailId);
             if (userData != null)
             {
-                var hmac = new HMACSHA512(userData.PasswordHash);
+                var hmac = new HMACSHA512(userData.PasswordKey);
                 var userPass = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDTO.Password));
                 for (int i = 0; i < userPass.Length; i++)
                 {
-                    if (userPass[i] != userData.PasswordKey[i])
+                    if (userPass[i] != userData.PasswordHash[i])
                         return null;
                 }
+                var status = await _agentRepo.Get(loginDTO.EmailId);
                 user = new UserDTO();
                 user.Id = userData.UserId;
                 user.EmailId = userData.EmailId;
                 user.Role = userData.Role;
-                user.Status = userData.Role == "Agent" ? user.Status : null;
-                user.Token = (userData.Role == "Agent" && user.Status == "Approved") || (userData.Role == "Traveller") || (userData.Role == "Admin") ?
+                user.Status = userData.Role == "TravelAgent" ? status.Status : null;
+                user.Token = (userData.Role == "TravelAgent" && status.Status == "Approved") || (userData.Role == "Traveller") || (userData.Role == "Admin") ?
                     _generateToken.GenerateToken(user) : null;
             }
             return user;

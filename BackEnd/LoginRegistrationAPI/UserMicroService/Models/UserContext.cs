@@ -26,22 +26,22 @@ namespace UserMicroService.Models
 
             modelBuilder.Entity<User>()
            .HasIndex(u => u.EmailId)
-           .IsUnique();
+           .IsUnique(true);
 
             // Unique constraint for Admin table
             modelBuilder.Entity<Admin>()
                 .HasIndex(a => a.EmailId)
-                .IsUnique();
+                .IsUnique(true);
 
             // Unique constraint for TourAgent table
             modelBuilder.Entity<TravelAgent>()
                 .HasIndex(ta => ta.EmailId)
-                .IsUnique();
+                .IsUnique(true);
 
             // Unique constraint for Traveller table
             modelBuilder.Entity<Traveller>()
                 .HasIndex(t => t.EmailId)
-                .IsUnique();
+                .IsUnique(true);
         }
     }
 }

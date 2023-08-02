@@ -142,7 +142,7 @@ namespace UserMicroService.Controllers
 
         }
 
-        [HttpGet("View_All_UnApproved_TravelAgents")]
+        [HttpGet("View_All_Approved_TravelAgents")]
         [ProducesResponseType(typeof(ActionResult<ICollection<TravelAgent>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Roles = "Admin")]

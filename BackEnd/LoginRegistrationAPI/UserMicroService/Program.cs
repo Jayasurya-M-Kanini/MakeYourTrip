@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using UserMicroService.Interfaces;
 using UserMicroService.Models;
+using UserMicroService.Services;
 
 namespace UserMicroService
 {
@@ -25,6 +27,18 @@ namespace UserMicroService
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("conn"));
             });
 
+            builder.Services.AddScoped<IGenerateToken, TokenService>();
+            builder.Services.AddScoped<IBaseCRUD<string, User>, UserRepo>();
+            builder.Services.AddScoped<IBaseCRUD<string, TravelAgent>, AgentRepo>();
+            builder.Services.AddScoped<IBaseCRUD<string, Admin>, AdminRepo>();
+            builder.Services.AddScoped<IBaseCRUD<string, Traveller>, TravellerRepo>();
+
+            builder.Services.AddScoped<IManageUser, ManageUserService>();
+            builder.Services.AddScoped<IManageAdmin, ManageAdminService>();
+            builder.Services.AddScoped<IManageTravelAgent, ManageTravelAgentService>();
+            builder.Services.AddScoped<IManageTraveller, ManageTravellersService>();
+
+            builder.Services.AddScoped<IChangePassword, PasswordServices>();
 
 
 

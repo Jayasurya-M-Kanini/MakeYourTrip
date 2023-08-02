@@ -5,6 +5,6 @@ namespace UserMicroService.Models.DTO
     public class AdminRegisterDTO:Admin
     {
         [Required]
-        public string? PasswordClear { get; set; }
+        public string PasswordClear { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace UserMicroService.Services
             //User identity
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId,user.EmailId.ToString()),
+                new Claim(JwtRegisteredClaimNames.NameId,user.EmailId),
                 new Claim(ClaimTypes.Role,user.Role)
             };
             //Signature algorithm
