@@ -18,7 +18,7 @@ namespace BookingMicroService.Services
         {
             try
             {
-                payment.PaymentStatus = "Pending";
+                payment.PaymentStatus="Pending";
                 await _paymentRepo.Add(payment);
                 return payment;
             }

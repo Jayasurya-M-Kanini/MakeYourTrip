@@ -61,7 +61,7 @@ namespace ImageMicroService
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("ReactCors",
+                options.AddPolicy("ReactCORS",
                     builder =>
                     {
                         builder.AllowAnyOrigin()
