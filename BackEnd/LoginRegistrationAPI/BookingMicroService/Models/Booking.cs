@@ -6,6 +6,8 @@
         public int TourId { get; set; }
         public int UserId { get; set; }
         public DateTime BookingDate { get; set; }
+        public string? PickupPoint { get; set; }
+        public string? AdditionalRequests { get; set; }
         public string? BookingStatus { get; set; }
         public ICollection<Passenger>? Passengers { get; set; }
         public ICollection<Payment>? Payments { get; set; }

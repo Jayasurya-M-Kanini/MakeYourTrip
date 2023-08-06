@@ -38,9 +38,6 @@ namespace TourPackageMicroservice.Models
             {
                 _logger.LogError(ex.Message);
                 transaction.Rollback();
-
-
-
             }
             return null;
         }
@@ -65,9 +62,6 @@ namespace TourPackageMicroservice.Models
                 {
                     _logger.LogError(ex.Message);
                     transaction.Rollback();
-
-
-
                 }
             }
 
@@ -75,11 +69,11 @@ namespace TourPackageMicroservice.Models
         }
 
 
-        public async Task<ICollection<TourDetails>?> GetAll()
+        public async Task<ICollection<TourDetails?>?> GetAll()
         {
             try
             {
-                var tour = await _context.TourDetails.Include(c => c.TourExclusion).Include(c => c.TourInclusion).Include(c => c.PickupPoints).Include(c => c.TourDestination).ThenInclude(c => c.Destination).Include(c => c.Itineraries).ThenInclude(c => c.DailySchedules).ToListAsync();
+                List<TourDetails> tour = await _context.TourDetails.Include(c => c.TourExclusion).Include(c => c.TourInclusion).Include(c => c.PickupPoints).Include(c => c.TourDestination).ThenInclude(c => c.Destination).Include(c => c.Itineraries).ThenInclude(c => c.DailySchedules).ToListAsync();
                 return tour;
             }
             catch (Exception ex)
@@ -115,7 +109,6 @@ namespace TourPackageMicroservice.Models
             var tourdetails =await  Get(updatedtourDetails.TourId);
             if (tourdetails != null)
             {
-                tourdetails.TourName = updatedtourDetails.TourName;
                 tourdetails.TourDescription= updatedtourDetails.TourDescription;
                 tourdetails.Tourtype = updatedtourDetails.Tourtype;
                 tourdetails.DepartureDate = updatedtourDetails.DepartureDate;

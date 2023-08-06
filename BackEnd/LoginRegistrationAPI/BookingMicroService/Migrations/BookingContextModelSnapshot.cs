@@ -30,10 +30,16 @@ namespace BookingMicroService.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"), 1L, 1);
 
+                    b.Property<string>("AdditionalRequests")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("BookingDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("BookingStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PickupPoint")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TourId")

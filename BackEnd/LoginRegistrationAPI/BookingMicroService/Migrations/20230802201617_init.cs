@@ -18,6 +18,8 @@ namespace BookingMicroService.Migrations
                     TourId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PickupPoint = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdditionalRequests = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BookingStatus = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

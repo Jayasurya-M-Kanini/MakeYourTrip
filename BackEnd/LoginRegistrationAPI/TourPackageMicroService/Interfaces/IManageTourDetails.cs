@@ -1,4 +1,5 @@
 ﻿using TourPackageMicroservice.Models;
+using TourPackageMicroService.Models.DTO;
 
 namespace TourPackageMicroService.Interfaces
 {
@@ -9,6 +10,6 @@ namespace TourPackageMicroService.Interfaces
         public Task<TourDetails?> GettourDetails(int id);
         public Task<ICollection<TourDetails>?> GetAlltourDetails();
         public Task<TourDetails?> UpdatetourDetails(TourDetails tourDetails);
-        //public Task<TourDetails?> SearchToursByDestination(string destination);
+        public Task<TourDetails?> UpdateBookingCount(BookedCapacityDTO bookedCapacityDTO);
     }
 }

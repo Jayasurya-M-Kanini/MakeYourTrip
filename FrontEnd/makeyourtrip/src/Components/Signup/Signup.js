@@ -44,23 +44,67 @@ import { useState } from 'react';
           <form action="#" className={`login-form ${isLogin ? 'login' : 'signup'}`}>
           {!isLogin && (
           <div className="login-field">
-          <input type="password" placeholder="Username" required />
+          <input type="text" placeholder="Agency Name" required />
           </div>
             )}
+          {!isLogin && (
+          <div className="login-field">
+          <input type="text" placeholder="Contact Person Name" required />
+          </div>
+            )}
+           {!isLogin && (
             <div className="login-field">
-              <input type="text" placeholder="Email Address" required />
-            </div>
+            <input type="tel" placeholder="PhoneNumber" required />
+          </div>
+            )}
+            {!isLogin && (
+             <div className="login-field">
+             <input type="email" placeholder="Email Address" required />
+   </div>
+            )}
             {!isLogin && (
             <div className="login-field">
-            <input type="password" placeholder="PhoneNumber" required />
+              <input type="text" placeholder="Street" required />
           </div>
             )}
-            <div className="login-field">
-              <input type="password" placeholder="Password" required />
-            </div>
             {!isLogin && (
               <div className="login-field">
-                <input type="password" placeholder="Confirm password" required />
+                <input type="text" placeholder="City" required />
+              </div>
+            )}
+            {!isLogin && (
+              <div className="login-field">
+                <input type="text" placeholder="State" required />
+              </div>
+            )}
+            {!isLogin && (
+              <div className="login-field">
+                <input type="text" placeholder="Country" required />
+              </div>
+            )}
+            {!isLogin && (
+              <div className="login-field">
+                <input type="password" placeholder="Password" required />
+              </div>
+            )}
+             {isLogin && (
+              <div className="login-field">
+                <input type="text" placeholder="User Name" required />
+              </div>
+            )}
+            {isLogin && (
+              <div className="login-field">
+                <input type="tel" placeholder="Phone Number" required />
+              </div>
+            )}
+                         {isLogin && (
+              <div className="login-field">
+                <input type="email" placeholder="Email" required />
+              </div>
+            )}
+                         {isLogin && (
+              <div className="login-field">
+                <input type="password" placeholder="Password" required />
               </div>
             )}
             <div className="login-field my-login-btn">

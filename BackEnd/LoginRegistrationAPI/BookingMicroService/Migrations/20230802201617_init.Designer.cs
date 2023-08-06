@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingMicroService.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    [Migration("20230802051328_init")]
+    [Migration("20230802201617_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,10 +32,16 @@ namespace BookingMicroService.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"), 1L, 1);
 
+                    b.Property<string>("AdditionalRequests")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("BookingDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("BookingStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PickupPoint")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TourId")

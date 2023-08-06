@@ -15,10 +15,10 @@ const LandingPage = () => {
   return (
     <div>
       {/* Header */}
-      <header id="header">
+      {/* <header id="header"> */}
         <Navbar/>
         <Hero/>
-      </header>
+      {/* </header> */}
       {/* ... */}
       <Search/>
       <IndianStates/>

@@ -25,10 +25,19 @@ namespace TourPackageMicroservice.Models.Context
         public DbSet<DailySchedule> DailySchedules { get; set; }
 
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Exclusions>()
+           .HasIndex(u => u.ExclusionDescription)
+           .IsUnique(true);
 
+            modelBuilder.Entity<Inclusions>()
+                .HasIndex(a => a.InclusionDescription)
+                .IsUnique(true);
 
-
-
-
+            modelBuilder.Entity<Destination>()
+                .HasIndex(ta => ta.DestinationCityName)
+                .IsUnique(true);
+        }
     }
 }

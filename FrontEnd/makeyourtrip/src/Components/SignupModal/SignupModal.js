@@ -5,8 +5,8 @@ import Signup from '../Signup/Signup';
 
 const SignupModal = ({ onClose }) => {
   return (
-    <Modal title=" " footer={null} open={true} onOk={onClose} onCancel={onClose}>
-        <Signup/>
+    <Modal title=" " width={550} footer={null} open={true} onOk={onClose} onCancel={onClose}>
+        <Signup />
     </Modal>
   );
 };

@@ -36,9 +36,12 @@ namespace TourPackageMicroService.Migrations
 
                     b.Property<string>("DestinationCityName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("DestinationId");
+
+                    b.HasIndex("DestinationCityName")
+                        .IsUnique();
 
                     b.ToTable("Destinations");
                 });
@@ -158,9 +161,12 @@ namespace TourPackageMicroService.Migrations
 
                     b.Property<string>("ExclusionDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ExclusionId");
+
+                    b.HasIndex("ExclusionDescription")
+                        .IsUnique();
 
                     b.ToTable("Exclusions");
                 });
@@ -175,9 +181,12 @@ namespace TourPackageMicroService.Migrations
 
                     b.Property<string>("InclusionDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("InclusionId");
+
+                    b.HasIndex("InclusionDescription")
+                        .IsUnique();
 
                     b.ToTable("Inclusions");
                 });
@@ -248,13 +257,12 @@ namespace TourPackageMicroService.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Availability")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("BookedCapacity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BookingRestriction")
+                    b.Property<int>("BookingRestriction")
                         .HasColumnType("int");
 
                     b.Property<string>("CancellationPolicy")
@@ -276,18 +284,15 @@ namespace TourPackageMicroService.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("TourDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TourName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TourPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Tourtype")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TravelAgentId")

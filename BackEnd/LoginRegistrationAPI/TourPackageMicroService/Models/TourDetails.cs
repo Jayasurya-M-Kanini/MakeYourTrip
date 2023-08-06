@@ -10,13 +10,11 @@ namespace TourPackageMicroservice.Models
         [Required]
         public int TravelAgentId { get; set; }
 
-        [Required]
+        //[Required]
         public string? TourName { get; set; }
 
-        [Required]
         public string? TourDescription { get; set; }
 
-        [Required]
         public string? Tourtype { get; set; }
 
         [Required]
@@ -50,12 +48,12 @@ namespace TourPackageMicroservice.Models
         [Required]
         public int MaxCapacity { get; set; }
         public int BookedCapacity { get; set; }
-        [Required]
-        public string Availability{get; set;}
+        //[Required]
+        public string? Availability{get; set;}
         public string? ImageUrl { get; set; }
         public string? AccomodationStatus { get; set; }
         public string? CancellationPolicy { get; set; }
-        public int? BookingRestriction { get; set; }
+        public int BookingRestriction { get; set; }
         public string? HealthAndSafety { get; set; }
 
         public ICollection<PickupPoint?>? PickupPoints { get; set; }

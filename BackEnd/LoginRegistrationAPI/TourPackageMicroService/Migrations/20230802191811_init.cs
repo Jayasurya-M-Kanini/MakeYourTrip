@@ -15,7 +15,7 @@ namespace TourPackageMicroService.Migrations
                 {
                     DestinationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DestinationCityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DestinationCityName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -29,7 +29,7 @@ namespace TourPackageMicroService.Migrations
                 {
                     ExclusionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExclusionDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ExclusionDescription = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +42,7 @@ namespace TourPackageMicroService.Migrations
                 {
                     InclusionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    InclusionDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    InclusionDescription = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,19 +56,19 @@ namespace TourPackageMicroService.Migrations
                     TourId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TravelAgentId = table.Column<int>(type: "int", nullable: false),
-                    TourName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TourDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tourtype = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TourName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TourDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tourtype = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepartureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TourPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     MaxCapacity = table.Column<int>(type: "int", nullable: false),
                     BookedCapacity = table.Column<int>(type: "int", nullable: false),
-                    Availability = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Availability = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AccomodationStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CancellationPolicy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BookingRestriction = table.Column<int>(type: "int", nullable: true),
+                    BookingRestriction = table.Column<int>(type: "int", nullable: false),
                     HealthAndSafety = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -231,6 +231,24 @@ namespace TourPackageMicroService.Migrations
                 name: "IX_DailySchedules_ItineraryId",
                 table: "DailySchedules",
                 column: "ItineraryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Destinations_DestinationCityName",
+                table: "Destinations",
+                column: "DestinationCityName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exclusions_ExclusionDescription",
+                table: "Exclusions",
+                column: "ExclusionDescription",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inclusions_InclusionDescription",
+                table: "Inclusions",
+                column: "InclusionDescription",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Itineraries_DestinationId",

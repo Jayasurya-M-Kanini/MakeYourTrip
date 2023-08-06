@@ -5,9 +5,11 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserMicroService", "UserMicroService\UserMicroService.csproj", "{1E3EB1DC-1DCD-4FBC-85EE-78A6287031EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingMicroService", "BookingMicroService\BookingMicroService.csproj", "{D295B8BA-46CD-4470-9B40-6CE436EEEDFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingMicroService", "BookingMicroService\BookingMicroService.csproj", "{D295B8BA-46CD-4470-9B40-6CE436EEEDFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPackageMicroService", "TourPackageMicroService\TourPackageMicroService.csproj", "{BA9C98D5-D4D8-4B11-A037-3AAA4674FFB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPackageMicroService", "TourPackageMicroService\TourPackageMicroService.csproj", "{BA9C98D5-D4D8-4B11-A037-3AAA4674FFB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageMicroService", "ImageMicroService\ImageMicroService.csproj", "{184AC500-1496-4015-8F0D-D9A1A89C21C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BA9C98D5-D4D8-4B11-A037-3AAA4674FFB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA9C98D5-D4D8-4B11-A037-3AAA4674FFB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA9C98D5-D4D8-4B11-A037-3AAA4674FFB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{184AC500-1496-4015-8F0D-D9A1A89C21C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{184AC500-1496-4015-8F0D-D9A1A89C21C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{184AC500-1496-4015-8F0D-D9A1A89C21C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{184AC500-1496-4015-8F0D-D9A1A89C21C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

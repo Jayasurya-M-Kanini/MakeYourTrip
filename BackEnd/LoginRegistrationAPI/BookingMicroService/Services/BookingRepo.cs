@@ -67,7 +67,7 @@ namespace BookingMicroService.Services
         {
             try
             {
-                return await _context.Bookings.Include(b => b.Passengers).ToListAsync();
+                return await _context.Bookings.Include(b => b.Passengers).Include(b=>b.Payments).ToListAsync();
 
             }
             catch (Exception ex)
