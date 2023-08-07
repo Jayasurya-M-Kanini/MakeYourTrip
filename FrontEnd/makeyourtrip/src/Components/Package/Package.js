@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// import "./Addtourdetails.css";
-// import { useNavigate } from "react-router-dom";
+import './TourPackage.css'
+
 
 function Package() {
 //   const navigate = useNavigate();

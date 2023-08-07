@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-
-
+import { useEffect } from "react";
 
 function TourPackage() {
-const [daysCount, setDaysCount] = useState(1);
-const [inclusions, setInclusions] = useState([]);
-const [exclusions, setExclusions] = useState([]);
+    const[destinations,setdestinations]=useState([]);
+    const[Inclusion,setInclusion]=useState([]);
+    const[Exclusion,setExclusion]=useState([]);
+
   const [tourPackage, setTourPackage] = useState({
     tourId: 0,
     travelAgentId: localStorage.getItem("userId"),
@@ -74,7 +74,7 @@ const [exclusions, setExclusions] = useState([]);
     ],
   });
 
-  const handleInputChange = (itineraryIndex,field, value) => {
+  const handleInputChange = (itineraryIndex, field, value) => {
     const updatedTourItinerary = [...tourPackage.itineraries];
     updatedTourItinerary[itineraryIndex] = {
       ...updatedTourItinerary[itineraryIndex],
@@ -83,43 +83,24 @@ const [exclusions, setExclusions] = useState([]);
     setTourPackage({ ...tourPackage, itineraries: updatedTourItinerary });
   };
 
-//   const handleInputChange = (field, value) => {
-//     setTourPackage({ ...tourPackage, [field]: value });
-//   };
-
   const handleCountChange = (e) => {
     const newCount = parseInt(e.target.value, 10);
-    // setDaysCount(newCount);
-    // setTourPackage({ ...tourPackage, numberOfDays: newCount });
     const newTourItinerary = Array.from({ length: newCount }, () => ({
-    //   title: "",
-    //   itineraries: [
-    //     {
-    //       activityTitle: "",
-    //       activityDescription: "",
-    //       location: "",
-    //     },
-    //   ],
-    //   accommodation: {
-    //     hotelName: "",
-    //     address: "",
-    //   },
-    dayNumber: 0,
-    date: "",
-    destinationId: 0,
-    dailySchedules: [
+      dayNumber: 0,
+      date: "",
+      destinationId: 0,
+      dailySchedules: [
         {
           scheduleId: 0,
           timing: "",
           activity: "",
-          place: ""
-        }
-      ]
+          place: "",
+        },
+      ],
     }));
     setTourPackage({
       ...tourPackage,
-    //   numberOfDays: newCount,
-    itineraries: newTourItinerary,
+      itineraries: newTourItinerary,
     });
   };
 
@@ -189,10 +170,12 @@ const [exclusions, setExclusions] = useState([]);
     ));
   };
 
-//   Itineraries
+  //   Itineraries
 
-const handleAddDailySchedule = (itineraryIndex) => {
-    const newDailySchedules = [...tourPackage.itineraries[itineraryIndex].dailySchedules];
+  const handleAddDailySchedule = (itineraryIndex) => {
+    const newDailySchedules = [
+      ...tourPackage.itineraries[itineraryIndex].dailySchedules,
+    ];
     newDailySchedules.push({
       scheduleId: 0,
       itineraryId: 0,
@@ -208,7 +191,9 @@ const handleAddDailySchedule = (itineraryIndex) => {
   };
 
   const handleDeleteDailySchedule = (itineraryIndex, scheduleIndex) => {
-    const updatedDailySchedules = [...tourPackage.itineraries[itineraryIndex].dailySchedules];
+    const updatedDailySchedules = [
+      ...tourPackage.itineraries[itineraryIndex].dailySchedules,
+    ];
     updatedDailySchedules.splice(scheduleIndex, 1);
 
     const updatedItineraries = [...tourPackage.itineraries];
@@ -217,8 +202,15 @@ const handleAddDailySchedule = (itineraryIndex) => {
     setTourPackage({ ...tourPackage, itineraries: updatedItineraries });
   };
 
-  const handleDailyScheduleChange = (itineraryIndex, scheduleIndex, field, value) => {
-    const updatedDailySchedules = [...tourPackage.itineraries[itineraryIndex].dailySchedules];
+  const handleDailyScheduleChange = (
+    itineraryIndex,
+    scheduleIndex,
+    field,
+    value
+  ) => {
+    const updatedDailySchedules = [
+      ...tourPackage.itineraries[itineraryIndex].dailySchedules,
+    ];
     updatedDailySchedules[scheduleIndex][field] = value;
 
     const updatedItineraries = [...tourPackage.itineraries];
@@ -228,7 +220,8 @@ const handleAddDailySchedule = (itineraryIndex) => {
   };
 
   const renderDailySchedules = (itineraryIndex) => {
-    const dailySchedules = tourPackage.itineraries[itineraryIndex].dailySchedules;
+    const dailySchedules =
+      tourPackage.itineraries[itineraryIndex].dailySchedules;
     return dailySchedules.map((schedule, scheduleIndex) => (
       <div key={scheduleIndex} className="tourDailySchedule">
         <div>
@@ -242,7 +235,12 @@ const handleAddDailySchedule = (itineraryIndex) => {
               className="addTourInputField"
               value={schedule.timing}
               onChange={(e) =>
-                handleDailyScheduleChange(itineraryIndex, scheduleIndex, "timing", e.target.value)
+                handleDailyScheduleChange(
+                  itineraryIndex,
+                  scheduleIndex,
+                  "timing",
+                  e.target.value
+                )
               }
             />
           </div>
@@ -253,7 +251,12 @@ const handleAddDailySchedule = (itineraryIndex) => {
               className="addTourInputField"
               value={schedule.activity}
               onChange={(e) =>
-                handleDailyScheduleChange(itineraryIndex, scheduleIndex, "activity", e.target.value)
+                handleDailyScheduleChange(
+                  itineraryIndex,
+                  scheduleIndex,
+                  "activity",
+                  e.target.value
+                )
               }
             />
           </div>
@@ -264,13 +267,20 @@ const handleAddDailySchedule = (itineraryIndex) => {
               className="addTourInputField"
               value={schedule.place}
               onChange={(e) =>
-                handleDailyScheduleChange(itineraryIndex, scheduleIndex, "place", e.target.value)
+                handleDailyScheduleChange(
+                  itineraryIndex,
+                  scheduleIndex,
+                  "place",
+                  e.target.value
+                )
               }
             />
           </div>
           {dailySchedules.length > 1 && (
             <button
-              onClick={() => handleDeleteDailySchedule(itineraryIndex, scheduleIndex)}
+              onClick={() =>
+                handleDeleteDailySchedule(itineraryIndex, scheduleIndex)
+              }
               className="tourDataDeleteButton"
             >
               Delete
@@ -281,50 +291,7 @@ const handleAddDailySchedule = (itineraryIndex) => {
     ));
   };
 
-//   const renderItineraries = () => {
-//     return tourPackage.itineraries.map((itinerary, itineraryIndex) => (
-//       <div key={itineraryIndex} className="tourItinerary">
-//         <h3 className="dayNumber">Day {itineraryIndex+1}</h3>
-//         <div>
-//           <label className="addTourInputLable">DayNumber</label>
-//           <input
-//             type="text"
-//             className="addTourInputField"
-//             onChange={(e) => handleTitleChange(itineraryIndex, e.target.value)}
-//           />
-//         </div>
-//         <div>
-//           <label className="addTourInputLable">date</label>
-//           <input
-//             type="text"
-//             className="addTourInputField"
-//             onChange={(e) => handleTitleChange(itineraryIndex, e.target.value)}
-//           />
-//         </div>
-
-//         <div>
-//           <label className="addTourInputLable">destinationId</label>
-//           <input
-//             type="text"
-//             className="addTourInputField"
-//             onChange={(e) => handleTitleChange(itineraryIndex, e.target.value)}
-//           />
-//         </div>
-//         <div className="tourDailySchedules">
-//           <h4>Daily Schedules</h4>
-//           {renderDailySchedules(itineraryIndex)}
-//           <button
-//             onClick={() => handleAddDailySchedule(itineraryIndex)}
-//             className="tourDataAddButton"
-//           >
-//             Add Daily Schedule
-//           </button>
-//         </div>
-//       </div>
-//     ));
-//   };
-
-const renderItineraries = () => {
+  const renderItineraries = () => {
     return tourPackage.itineraries.map((itinerary, itineraryIndex) => (
       <div key={itineraryIndex} className="tourItinerary">
         <h3 className="dayNumber">Day {itineraryIndex + 1}</h3>
@@ -375,11 +342,9 @@ const renderItineraries = () => {
     ));
   };
 
+  //   tourDestinations
 
-
-//   tourDestinations
-
-const handleAddTourDestination = () => {
+  const handleAddTourDestination = () => {
     const newTourDestinations = [...tourPackage.tourDestination];
     newTourDestinations.push({
       id: 0,
@@ -396,14 +361,20 @@ const handleAddTourDestination = () => {
     const updatedTourDestinations = [...tourPackage.tourDestination];
     updatedTourDestinations.splice(destinationIndex, 1);
 
-    setTourPackage({ ...tourPackage, tourDestination: updatedTourDestinations });
+    setTourPackage({
+      ...tourPackage,
+      tourDestination: updatedTourDestinations,
+    });
   };
 
   const handleTourDestinationChange = (destinationIndex, field, value) => {
     const updatedTourDestinations = [...tourPackage.tourDestination];
     updatedTourDestinations[destinationIndex][field] = value;
 
-    setTourPackage({ ...tourPackage, tourDestination: updatedTourDestinations });
+    setTourPackage({
+      ...tourPackage,
+      tourDestination: updatedTourDestinations,
+    });
   };
 
   const renderTourDestinations = () => {
@@ -411,7 +382,7 @@ const handleAddTourDestination = () => {
       <div key={destinationIndex} className="tourDestination">
         <h3>Destination {destinationIndex + 1}</h3>
         <div className="tourDestinationDetails">
-            <div>
+          <div>
             <label className="addTourInputLabel">Destination Id:</label>
             <input
               type="number"
@@ -469,72 +440,7 @@ const handleAddTourDestination = () => {
     ));
   };
 
-//   tourInclusions
-
-// const handleAddInclusion = () => {
-//     const newInclusions = [...tourPackage.inclusions];
-//     newInclusions.push({ id: 0, tourId: 0, inclusionId: 0 });
-//     setInclusions({...tourPackage, inclusion:newInclusions});
-//   };
-
-//   const handleDeleteInclusion = (index) => {
-//     const updatedInclusions = inclusions.filter((_, i) => i !== index);
-//     setInclusions(updatedInclusions);
-//   };
-
-//   const handleInclusionIdChange = (index, value) => {
-//     const updatedInclusions = [...inclusions];
-//     updatedInclusions[index].inclusionId = value;
-//     setInclusions(updatedInclusions);
-//   };
-
-// const handleAddInclusion = () => {
-//     const newInclusions = [...inclusions];
-//     newInclusions.push({ id: 0, tourId: 0, inclusionId: 0 });
-//     setInclusions(newInclusions);
-//   };
-  
-//   const handleDeleteInclusion = (index) => {
-//     const updatedInclusions = inclusions.filter((_, i) => i !== index);
-//     setInclusions(updatedInclusions);
-//   };
-  
-//   const handleInclusionIdChange = (index, value) => {
-//     const updatedInclusions = [...inclusions];
-//     updatedInclusions[index].inclusionId = value;
-//     setInclusions(updatedInclusions);
-//   };
-
-//   const renderInclusions = () => {
-//     return inclusions.map((inclusion, index) => (
-//       <div key={index} className="tourInclusion">
-//         <div>
-//           <h3>Inclusion {index + 1}</h3>
-//         </div>
-//         <div className="tourInclusionDetails">
-//           <div>
-//             <label className="addTourInputLable">Inclusion ID:</label>
-//             <input
-//               type="number"
-//               className="addTourInputField"
-//               value={inclusion.inclusionId}
-//               onChange={(e) => handleInclusionIdChange(index, e.target.value)}
-//             />
-//           </div>
-//           {inclusions.length > 1 && (
-//             <button
-//               onClick={() => handleDeleteInclusion(index)}
-//               className="tourDataDeleteButton"
-//             >
-//               Delete
-//             </button>
-//           )}
-//         </div>
-//       </div>
-//          ));
-//   };
-
-const handleAddInclusion = () => {
+  const handleAddInclusion = () => {
     const newInclusions = [...tourPackage.tourInclusion];
     newInclusions.push({ inclusionId: 0 });
     setTourPackage({ ...tourPackage, tourInclusion: newInclusions });
@@ -559,7 +465,7 @@ const handleAddInclusion = () => {
         <div>
           <label className="addTourInputLable">inclusion {index + 1}</label>
           <input
-		type="number"
+            type="number"
             className="addTourInputField"
             value={inclusion.inclusionId}
             onChange={(e) => handleInclusionChange(index, e.target.value)}
@@ -579,73 +485,7 @@ const handleAddInclusion = () => {
     ));
   };
 
-
-//   tourExclusions
-
-//   const handleAddExclusion = () => {
-//     const newExclusions = [...exclusions];
-//     newExclusions.push({ id: 0, tourId: 0, exclusionId: 0 });
-//     setExclusions(newExclusions);
-//   };
-
-//   const handleDeleteExclusion = (index) => {
-//     const updatedExclusions = exclusions.filter((_, i) => i !== index);
-//     setExclusions(updatedExclusions);
-//   };
-
-//   const handleExclusionIdChange = (index, value) => {
-//     const updatedExclusions = [...exclusions];
-//     updatedExclusions[index].exclusionId = value;
-//     setExclusions(updatedExclusions);
-//   };
-
-// const handleAddExclusion = () => {
-//     const newExclusions = [...exclusions];
-//     newExclusions.push({ id: 0, tourId: 0, exclusionId: 0 });
-//     setExclusions(newExclusions);
-//   };
-  
-//   const handleDeleteExclusion = (index) => {
-//     const updatedExclusions = exclusions.filter((_, i) => i !== index);
-//     setExclusions(updatedExclusions);
-//   };
-  
-//   const handleExclusionIdChange = (index, value) => {
-//     const updatedExclusions = [...exclusions];
-//     updatedExclusions[index].exclusionId = value;
-//     setExclusions(updatedExclusions);
-//   };
-
-//   const renderExclusions = () => {
-//     return exclusions.map((exclusion, index) => (
-//       <div key={index} className="tourExclusion">
-//         <div>
-//           <h3>Exclusion {index + 1}</h3>
-//         </div>
-//         <div className="tourExclusionDetails">
-//           <div>
-//             <label className="addTourInputLable">Exclusion ID:</label>
-//             <input
-//               type="number"
-//               className="addTourInputField"
-//               value={exclusion.exclusionId}
-//               onChange={(e) => handleExclusionIdChange(index, e.target.value)}
-//             />
-//           </div>
-//           {exclusions.length > 1 && (
-//             <button
-//               onClick={() => handleDeleteExclusion(index)}
-//               className="tourDataDeleteButton"
-//             >
-//               Delete
-//             </button>
-//           )}
-//         </div>
-//       </div>
-//     ));
-//   };
-
-const handleAddExclusion = () => {
+  const handleAddExclusion = () => {
     const newExclusions = [...tourPackage.tourExclusion];
     newExclusions.push({ exclusionId: "" });
     setTourPackage({ ...tourPackage, tourExclusion: newExclusions });
@@ -692,20 +532,96 @@ const handleAddExclusion = () => {
   const handleSubmit = () => {
     console.log(tourPackage);
     // Implement your fetch logic here
+    fetch("http://localhost:5246/api/TourDetails", {
+      method: "POST",
+      headers: {
+        accept: "text/plain",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...tourPackage }),
+    })
+      .then(async (data) => {
+        var myData = await data.json();
+        console.log(myData);
+      })
+      .catch((err) => {
+        console.log(err.error);
+      });
   };
+
+  
+  var GetAllDestinations = () => {
+    console.log(destinations);
+    fetch("http://localhost:5246/api/Destinations", {
+      method: "GET",
+      headers: {
+        accept: "text/plain",
+        // Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    }).then(async (data) => {
+      var myData = await data.json();
+      console.log(myData);
+      //   const filtered = myData.filter(booking => booking.userId === userId);
+      //   console.log(filtered);
+      setdestinations(myData);
+    });
+  };
+  useEffect(()=>{
+    GetAllDestinations();
+  },[destinations])
+
+  var GetAllInclusions = () => {
+    fetch("http://localhost:5246/api/Inclusions", {
+      method: "GET",
+      headers: {
+        accept: "text/plain",
+        // Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    }).then(async (data) => {
+      var myData = await data.json();
+      console.log(myData);
+      //   const filtered = myData.filter(booking => booking.userId === userId);
+      //   console.log(filtered);
+      setInclusion(myData);
+    });
+  };
+  useEffect(()=>{
+    GetAllInclusions();
+  },[Inclusion])
+
+  var GetAllExclusion = () => {
+    fetch("http://localhost:5246/api/Exclusions", {
+      method: "GET",
+      headers: {
+        accept: "text/plain",
+        // Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    }).then(async (data) => {
+      var myData = await data.json();
+      console.log(myData);
+      //   const filtered = myData.filter(booking => booking.userId === userId);
+      //   console.log(filtered);
+      setExclusion(myData);
+    });
+  };
+  useEffect(()=>{
+    GetAllExclusion();
+  },[Exclusion])
 
   return (
     <div className="TourPackage">
-              <div className="CreateTourHeader">
+      <div className="CreateTourHeader">
         <div>
           <h1>Create a tour package</h1>
         </div>
       </div>
 
-      {/* normal-1 */}
-
-      <div className="tourTitleDescription">
+      <div className="formContainer">
+        <div className="column">
+        <div className="tourTitleDescription">
         <div className="inputLabelFlexContainer ">
+        <h3>General Details</h3>
+
           <label className="addTourInputLable">Tour Name</label>
           <input
             className="addTourInputField tourTitleInputField"
@@ -723,7 +639,10 @@ const handleAddExclusion = () => {
             type="text"
             placeholder="Tour description"
             onChange={(e) =>
-              setTourPackage({ ...tourPackage, tourDescription: e.target.value })
+              setTourPackage({
+                ...tourPackage,
+                tourDescription: e.target.value,
+              })
             }
           />
         </div>
@@ -751,13 +670,12 @@ const handleAddExclusion = () => {
         <div className="inputLabelFlexContainer">
           <label className="addTourInputLable">Tour Type</label>
           <input
-          type="text"
+            type="text"
             className="addTourInputField"
             onChange={(e) =>
               setTourPackage({ ...tourPackage, tourType: e.target.value })
             }
-          >
-          </input>
+          ></input>
         </div>
         <div className="inputLabelFlexContainer">
           <label className="addTourInputLable">Tour Price </label>
@@ -781,99 +699,130 @@ const handleAddExclusion = () => {
           />
         </div>
         <div className="inputLabelFlexContainer">
-        <label className="addTourInputLabel">Departure Date:</label>
-        <input
-          className="addTourInputField"
-          type="date"
-          placeholder="Tour Name"
-          onChange={(e) =>
-            setTourPackage({ ...tourPackage, departureDate: e.target.value })
-          }        />
+          <label className="addTourInputLabel">Departure Date:</label>
+          <input
+            className="addTourInputField"
+            type="date"
+            placeholder="Tour Name"
+            onChange={(e) =>
+              setTourPackage({ ...tourPackage, departureDate: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLabel">Return Date:</label>
+          <input
+            className="addTourInputField"
+            type="date"
+            placeholder="Tour Name"
+            onChange={(e) =>
+              setTourPackage({ ...tourPackage, returnDate: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLabel">Maximum capacity: </label>
+          <input
+            className="addTourInputField"
+            type="number"
+            placeholder="Tour Name"
+            onChange={(e) =>
+              setTourPackage({ ...tourPackage, maxCapacity: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLabel">Booked capacity: </label>
+          <input
+            className="addTourInputField"
+            type="number"
+            placeholder="Tour Name"
+            onChange={(e) =>
+              setTourPackage({ ...tourPackage, bookedCapacity: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLabel">Availability: </label>
+          <input
+            className="addTourInputField"
+            type="text"
+            placeholder="Tour Name"
+            onChange={(e) =>
+              setTourPackage({ ...tourPackage, availability: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLabel">Image: </label>
+          <input
+            className="addTourInputField"
+            type="text"
+            placeholder="Tour Name"
+            onChange={(e) =>
+              setTourPackage({ ...tourPackage, imageUrl: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLabel">Cancellation Policy : </label>
+          {/* <input
+            className="addTourInputField"
+            type="text"
+            placeholder="Tour Name"
+            onChange={(e) =>
+              setTourPackage({
+                ...tourPackage,
+                cancellationPolicy: e.target.value,
+              })
+            }
+          /> */}
+           <select
+            className="addTourInputField"
+            onChange={(e) =>
+                setTourPackage({
+                  ...tourPackage,
+                  cancellationPolicy: e.target.value,
+                })
+            }
+          >
+            <option value="">Select</option>
+            <option value="Free">Free</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLabel">Booking Restriction : </label>
+          <input
+            className="addTourInputField"
+            type="number"
+            placeholder="Tour Name"
+            onChange={(e) =>
+              setTourPackage({
+                ...tourPackage,
+                bookingRestriction: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLabel">Health & Safety : </label>
+          <input
+            className="addTourInputField"
+            type="text"
+            placeholder="Tour Name"
+            onChange={(e) =>
+              setTourPackage({
+                ...tourPackage,
+                healthAndSafety: e.target.value,
+              })
+            }
+          />
+        </div>
       </div>
-      <div className="inputLabelFlexContainer">
-        <label className="addTourInputLabel">Return Date:</label>
-        <input
-          className="addTourInputField"
-          type="date"
-          placeholder="Tour Name"
-          onChange={(e) =>
-            setTourPackage({ ...tourPackage, returnDate: e.target.value })
-          }        />
-      </div>
-      <div className="inputLabelFlexContainer">
-        <label className="addTourInputLabel">Maximum capacity: </label>
-        <input
-          className="addTourInputField"
-          type="number"
-          placeholder="Tour Name"
-          onChange={(e) =>
-            setTourPackage({ ...tourPackage, maxCapacity: e.target.value })
-          }        />
-      </div>
-      <div className="inputLabelFlexContainer">
-        <label className="addTourInputLabel">Booked capacity: </label>
-        <input
-          className="addTourInputField"
-          type="number"
-          placeholder="Tour Name"
-          onChange={(e) =>
-            setTourPackage({ ...tourPackage, bookedCapacity: e.target.value })
-          }        />
-      </div>
-      <div className="inputLabelFlexContainer">
-        <label className="addTourInputLabel">Availability: </label>
-        <input
-          className="addTourInputField"
-          type="text"
-          placeholder="Tour Name"
-          onChange={(e) =>
-            setTourPackage({ ...tourPackage, availability: e.target.value })
-          }        />
-      </div>
-      <div className="inputLabelFlexContainer">
-        <label className="addTourInputLabel">Image: </label>
-        <input
-          className="addTourInputField"
-          type="text"
-          placeholder="Tour Name"
-          onChange={(e) =>
-            setTourPackage({ ...tourPackage, imageUrl: e.target.value })
-          }        />
-      </div>
-      <div className="inputLabelFlexContainer">
-        <label className="addTourInputLabel">Cancellation Policy : </label>
-        <input
-          className="addTourInputField"
-          type="text"
-          placeholder="Tour Name"
-          onChange={(e) =>
-            setTourPackage({ ...tourPackage, cancellationPolicy: e.target.value })
-          }        />
-      </div>
-      <div className="inputLabelFlexContainer">
-        <label className="addTourInputLabel">Booking Restriction : </label>
-        <input
-          className="addTourInputField"
-          type="number"
-          placeholder="Tour Name"
-          onChange={(e) =>
-            setTourPackage({ ...tourPackage, bookingRestriction: e.target.value })
-          }        />
-      </div>
-      <div className="inputLabelFlexContainer">
-        <label className="addTourInputLabel">Health & Safety : </label>
-        <input
-          className="addTourInputField"
-          type="text"
-          placeholder="Tour Name"
-          onChange={(e) =>
-            setTourPackage({ ...tourPackage, healthAndSafety: e.target.value })
-          }        />
-      </div>
-      </div>
-
-
-      <div className="inputLabelFlexContainer tourTitleDescription">
+        </div>
+        <div className="column">
+        <div className="inputLabelFlexContainer tourTitleDescription">
         {renderPickupPoints()}
         <button onClick={handleAddPickupPoint} className="tourDataAddButton">
           Add Pickup Point
@@ -887,19 +836,22 @@ const handleAddExclusion = () => {
         </div>
       </div>
       {/* Render other sections similarly */}
-    <div className="inputLabelFlexContainer tourTitleDescription">
+      <div className="inputLabelFlexContainer tourTitleDescription">
         <div className="inputLabelFlexContainer tourTitleDescription">
           <h2>Tour Destinations</h2>
           {renderTourDestinations()}
-          <button onClick={handleAddTourDestination} className="tourDataAddButton">
+          <button
+            onClick={handleAddTourDestination}
+            className="tourDataAddButton"
+          >
             Add Tour Destination
           </button>
         </div>
       </div>
 
-    {/* Render other sections similarly */}
+      {/* Render other sections similarly */}
 
-    <div className="inputLabelFlexContainer tourTitleDescription">
+      <div className="inputLabelFlexContainer tourTitleDescription">
         <div className="inputLabelFlexContainer tourTitleDescription">
           <h2>Tour Inclusions</h2>
           {renderInclusions()}
@@ -910,13 +862,18 @@ const handleAddExclusion = () => {
         <div className="inputLabelFlexContainer tourTitleDescription">
           <h2>Tour Exclusions</h2>
           {/* Render exclusions similarly */}
-        {renderExclusions()}
+          {renderExclusions()}
           <button onClick={handleAddExclusion} className="tourDataAddButton">
             Add Exclusion
           </button>
         </div>
       </div>
 
+        </div>
+      </div>
+
+      {/* normal-1 */}
+      
       <div className="inputLabelFlexContainer tourTitleDescription">
         <button
           className="tourDetailsSubmitButton"
