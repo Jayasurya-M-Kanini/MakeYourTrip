@@ -11,10 +11,123 @@ function BookingOTPModal( {onClose}) {
     const [resendDisabled, setResendDisabled] = useState(false);
     const [countdown, setCountdown] = useState(60);
 
-    const handleVerifyClick=()=>{
-        setShowSuccessModal(true);
-        setShowBookingOTPModal(false);
+    const updatePayment={
+      paymentId: localStorage.getItem("paymentId"),
+      paymentStatus: "Completed",
+    };
+    console.log(updatePayment);
+
+    const bookId=localStorage.getItem("bookingId");
+    
+    const updateBooking={
+      bookingId:localStorage.getItem("bookingId"),
+      bookingStatus: "Completed"
     }
+    console.log(updateBooking);
+
+
+    // const [updateBooking, setUpdateBooking] = useState({
+    //   bookingId:bookId,
+    //   bookingStatus: "Completed",
+    // });
+
+    
+    const updateTour={
+      tourId: localStorage.getItem("tourId"),
+      bookedCapacity: localStorage.getItem("bookedCapacity")
+    };
+
+
+    const handleVerifyClick=()=>{
+        if(verifyOTP()){
+          changePaymentStatus();
+
+          setShowSuccessModal(true);
+          setShowBookingOTPModal(false);
+        }
+        else{
+          alert("Booking Failed");
+        }
+    }
+
+
+
+const changePaymentStatus=()=>{
+  fetch(`http://localhost:5027/api/Payment/UpdatePaymentStatus`, {
+    method: "PUT",
+    headers: {
+      accept: "text/plain",
+      // Authorization: "Bearer " + JwtToken,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatePayment),
+  })
+    .then(async (data) => {
+      var myData = await data.json();
+      console.log(myData);
+      changeBookingStatus();
+      // toast.success("Status Updated Successfully");
+    })
+    .catch((err) => {
+      console.log(err.error);
+    });
+};
+
+
+
+const changeBookingStatus=()=>{
+  fetch(`http://localhost:5027/api/Booking/UpdateBookingStatus`, {
+    method: "PUT",
+    headers: {
+      accept: "text/plain",
+      // Authorization: "Bearer " + JwtToken,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updateBooking),
+  })
+    .then(async (data) => {
+      var myData = await data.json();
+      console.log(myData);
+      changeBookedCount();
+
+      // toast.success("Status Updated Successfully");
+    })
+    .catch((err) => {
+      console.log(err.error);
+    });
+};
+
+
+const changeBookedCount=()=>{
+  fetch("http://localhost:5246/api/TourDetails", {
+    method: "PUT",
+    headers: {
+      accept: "text/plain",
+      // Authorization: "Bearer " + JwtToken,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updateTour),
+  })
+    .then(async (data) => {
+      var myData = await data.json();
+      console.log(myData);
+      // toast.success("Status Updated Successfully");
+    })
+    .catch((err) => {
+      console.log(err.error);
+    });
+};
+
+
+
+    const verifyOTP=()=>{
+      return true;
+    }
+
+// const handleVerifyClick=()=>{
+//                 setShowSuccessModal(true);
+//           setShowBookingOTPModal(false);
+// }
 
 const [inputs, setInputs] = useState(Array(6).fill(""));
 
@@ -24,7 +137,6 @@ const [inputs, setInputs] = useState(Array(6).fill(""));
   useEffect(() => {
     inputsRef.current[0].focus();
     startCountdown();
-
   }, []);
 
   const handlePaste = (event) => {
@@ -44,40 +156,78 @@ const [inputs, setInputs] = useState(Array(6).fill(""));
     }
   };
 
+  // const handleKeyUp = (index, e) => {
+  //   const currentInput = inputsRef.current[index];
+  //   const nextInput = inputsRef.current[index + 1];
+  //   const prevInput = inputsRef.current[index - 1];
+
+  //   if (currentInput.value.length > 1) {
+  //     currentInput.value = '';
+  //     return;
+  //   }
+  //   if (e.key === 'Backspace') {
+  //       if (prevInput) {
+  //         currentInput.value = ''; // Clear the current input
+  //         prevInput.removeAttribute('disabled');
+  //         prevInput.value = '';
+  //         prevInput.focus();
+  //       }
+  //     }
+
+  //   if (currentInput.value.length === 1) {
+  //     if (nextInput) {
+  //       nextInput.removeAttribute('disabled');
+  //       nextInput.focus();
+  //     }
+  //   }
+
+  //   if (nextInput && nextInput.hasAttribute('disabled') && currentInput.value !== '') {
+  //     nextInput.removeAttribute('disabled');
+  //     nextInput.focus();
+  //   }
+
+  //   setActiveButton(false);
+
+  //   const inputsNo = inputsRef.current.length;
+  //   if (!inputsRef.current[inputsNo - 1].disabled && inputsRef.current[inputsNo - 1].value !== '') {
+  //     setActiveButton(true);
+  //   }
+  // };
+
   const handleKeyUp = (index, e) => {
     const currentInput = inputsRef.current[index];
     const nextInput = inputsRef.current[index + 1];
     const prevInput = inputsRef.current[index - 1];
-
+  
     if (currentInput.value.length > 1) {
       currentInput.value = '';
       return;
     }
     if (e.key === 'Backspace') {
-        if (prevInput) {
-          currentInput.value = ''; // Clear the current input
-          prevInput.removeAttribute('disabled');
-          prevInput.value = '';
-          prevInput.focus();
-        }
+      if (prevInput) {
+        currentInput.value = ''; // Clear the current input
+        prevInput.removeAttribute('disabled');
+        prevInput.value = '';
+        prevInput.focus();
       }
-
+    }
+  
     if (currentInput.value.length === 1) {
       if (nextInput) {
         nextInput.removeAttribute('disabled');
         nextInput.focus();
       }
     }
-
+  
     if (nextInput && nextInput.hasAttribute('disabled') && currentInput.value !== '') {
       nextInput.removeAttribute('disabled');
       nextInput.focus();
     }
-
+  
     setActiveButton(false);
-
+  
     const inputsNo = inputsRef.current.length;
-    if (!inputsRef.current[inputsNo - 1].disabled && inputsRef.current[inputsNo - 1].value !== '') {
+    if (index === inputsNo - 1 && !inputsRef.current[index].disabled && inputsRef.current[index].value !== '') {
       setActiveButton(true);
     }
   };

@@ -160,9 +160,11 @@ import "../LandingPage/LandingPage.css";
 import { FaBars } from "react-icons/fa";
 import LoginModal from "../LoginModal/LoginModal";
 import SignupModal from "../SignupModal/SignupModal";
-import { Modal, Space } from "antd";
-import Dropdown from "antd/es/dropdown/dropdown";
+import { Menu, Dropdown, Space } from "antd";
+
+// import Dropdown from "antd/es/dropdown/dropdown";
 import { DownOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar({ onClose }) {
   const [showList, setShowList] = useState(false);
@@ -207,6 +209,22 @@ function Navbar({ onClose }) {
   const handleSignupButtonClick = () => {
     setIsSignupModalOpen(true);
   };
+  const navigate=useNavigate();
+  const handleLogout=()=>{
+    localStorage.clear();
+    // navigate("/");
+  }
+  const menu = (
+    <Menu>
+      <Menu.Item key="profile">
+        <Link to="/profile">Profile</Link>
+      </Menu.Item>
+      <Menu.Item key="logout">
+        <Link onClick={handleLogout} to="/">Logout</Link>
+      </Menu.Item>
+    </Menu>
+  );
+
 
   return (
     <nav className="my-navbar" style={{ position: "fixed" }}>
@@ -243,35 +261,35 @@ function Navbar({ onClose }) {
           style={{ marginBottom: "0rem" }}
         >
           <li>
-            <a
+            <Link to="/"
               style={{ textDecoration: "none" }}
-              href="#header"
+             
               className="my-navbar-links scroll-link"
             >
               home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#about" className="my-navbar-links scroll-link">
+            <Link to="/about" className="my-navbar-links scroll-link">
               about
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#services" className="my-navbar-links scroll-link">
-              services
-            </a>
+            <Link to="/searchPage" className="my-navbar-links scroll-link">
+              Tours
+            </Link>
           </li>
           <li>
-            <a href="#featured" className="my-navbar-links scroll-link">
-              featured
-            </a>
+            <Link to="/profile" className="my-navbar-links scroll-link">
+              Profile
+            </Link>
           </li>
           <li>
             <a href="#gallery" className="my-navbar-links scroll-link">
               gallery
             </a>
           </li>
-          <div class="my-navbar-social-icons">
+          <div class="my-navbar-social-icons" style={{ marginLeft: isLoggedIn ? "10rem" : "5rem" }}>
             <span>
               {isLoggedIn ? (
                 <div
@@ -281,18 +299,27 @@ function Navbar({ onClose }) {
                   {/* Customize your profile dropdown content here
                 <a href="/profile">Profile</a>
                 <a href="/logout">Logout</a> */}
-                  <Dropdown
+                  {/* <Dropdown
                     menu={{
-                      items,
+                      items
                     }}
                   >
-                    <a style={{textAlign:"left"}} onClick={(e) => e.preventDefault()}>
+                    <span style={{textAlign:"left"}} onClick={(e) => e.preventDefault()}>
                       <Space  style={{marginLeft:"8rem",textAlign:"left"}}>
                         Hi , User
                         <DownOutlined />
                       </Space>
-                    </a>
-                  </Dropdown>
+                    </span>
+                  </Dropdown> */}
+              <div className="my-profile-dropdown">
+                <Dropdown overlay={menu}>
+                  <span style={{ cursor: "pointer" }}>
+                    <Space>
+                      Hi, User <DownOutlined />
+                    </Space>
+                  </span>
+                </Dropdown>
+              </div>
                 </div>
               ) : (
                 // <div>

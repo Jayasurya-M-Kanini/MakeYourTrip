@@ -15,6 +15,9 @@ import BookingTable from './Components/BasicCard/Tables/BookingTable';
 import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
+import BookingConfirm from './Components/BookingConfirmPage/BookingConfirm';
+import Package from './Components/Package/Package';
+import TourPackage from './Components/Package/TourPackage';
 
 function App() {
   return (
@@ -23,23 +26,35 @@ function App() {
       {/* <Login/> */}
       {/* <Maps/> */}
       {/* <TourDestinationForm/> */}
-      {/* <SearchPage/>
-      <TourPage/> */}
+      {/* <SearchPage/> */}
+      {/* <TourPage/> */}
       {/* <BookingPage/> */}
       {/* <ProfilePage/> */}
       {/* <BookingTable/> */}
-      <BrowserRouter>
-      {/* <ToastContainer /> */}
+        {/* <ToastContainer /> */}
+      {/* <BrowserRouter>
+    
       <Routes>
-        <Route path="/" element={<ProfilePage/>} />
+        <Route path="/" element={<LandingPage/>} />
         
-        <Route path="/MyBooking" element={<BookingTable/>} />
+        <Route path="/searchPage" element={<SearchPage/>} />
+        <Route path="/tourpage" element={<TourPage/>} />
+        <Route path="/tourpage/bookingpage" element={<BookingPage/>} />
+        <Route path="/tourpage/bookingpage/ticket" element={<BookingConfirm/>} />
+        <Route path="/profile" element={<ProfilePage/>} /> */}
+
+
+       
         {/* <Route path="/ResetPassword" element={<ResetPassword/>} /> */}
 
         {/* <Route path="/User/*" element={<Nav/>}/> */}
 
-      </Routes> 
-    </BrowserRouter>
+     {/* </Routes> 
+    </BrowserRouter>   */}
+      {/* <BookingPage/> */}
+      {/* <BookingConfirm/> */}
+      {/* <Package/> */}
+      <TourPackage/>
     </div>
   );
 }

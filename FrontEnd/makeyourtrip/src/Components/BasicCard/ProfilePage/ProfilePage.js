@@ -9,215 +9,69 @@ const ProfilePage = () => {
     const [Bookings, setBookings] = useState([]);
 
     const userId = 3;
-    var GetAllBookings = () => {
-      fetch("http://localhost:5027/api/Booking/GetAllBookings", {
-        method: "GET",
-        headers: {
-          accept: "text/plain",
-          // Authorization: "Bearer " + localStorage.getItem("Token"),
-        },
-      }).then(async (data) => {
-        var myData = await data.json();
-        console.log(myData);
-        //   const filtered = myData.filter(booking => booking.userId === userId);
-        //   console.log(filtered);
-        setBookings(myData);
-      });
-    };
-    useEffect(() => {
-      GetAllBookings();
-    }, []);
+    // var GetAllBookings = () => {
+    //   fetch("http://localhost:5027/api/Booking/GetAllBookings", {
+    //     method: "GET",
+    //     headers: {
+    //       accept: "text/plain",
+    //       // Authorization: "Bearer " + localStorage.getItem("Token"),
+    //     },
+    //   }).then(async (data) => {
+    //     var myData = await data.json();
+    //     console.log(myData);
+    //     //   const filtered = myData.filter(booking => booking.userId === userId);
+    //     //   console.log(filtered);
+
+    //     // setBookings(myData);
+    //     const tourDetailsList=GetAllTours();
+    //     const filtered = myData.filter(booking => booking.userId === userId);
+    //   setBookings(filtered.map(booking => ({
+    //     ...booking,
+    //     status: getStatus(booking,tourDetailsList), // Calculate the status for each booking
+    //   })));
+    //   });
+    // };
+    // useEffect(() => {
+    //   GetAllBookings();
+    // }, []);
+
+    // const[tourDetails,settourDetails]=useState([])
+    // var GetAllTours = () => {
+    //   fetch("http://localhost:5246/api/TourDetails", {
+    //     method: "GET",
+    //     headers: {
+    //       accept: "text/plain",
+    //       // Authorization: "Bearer " + localStorage.getItem("Token"),
+    //     },
+    //   }).then(async (data) => {
+    //     var myData = await data.json();
+    //     console.log(myData);
+
+    //   });
+    // };
+
+    // const getStatus = (booking, tourDetailsList) => {
+    //   const currentDate = new Date();
+      
+    //   // Find the tour details for the booking's tourId
+    //   const tourDetails = tourDetailsList.find(details => details.tourId === booking.tourId);
+      
+    //   if (!tourDetails) {
+    //     return 'Unknown';
+    //   }
+      
+    //   const departureDate = new Date(tourDetails.departureDate);
+    //   const returnDate = new Date(tourDetails.returnDate);
     
-    const tour = {
-      tourId: 1,
-      travelAgentId: 101,
-      tourName: "Exploring Ancient Ruins",
-      tourDescription: "Discover ancient civilizations through their ruins.",
-      tourtype: "Historical",
-      departureDate: "2023-09-15T10:00:00.000Z",
-      returnDate: "2023-09-25T18:00:00.000Z",
-      durationInDays: 11,
-      tourPrice: 1200,
-      maxCapacity: 20,
-      bookedCapacity: 8,
-      availability: "Available",
-      imageUrl:
-        "https://images.unsplash.com/photo-1496297485239-4265d2ba2105?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1967&q=80",
-      accomodationStatus: "Included",
-      cancellationPolicy: "Free",
-      bookingRestriction: 3,
-      healthAndSafety: "Enhanced safety measures in place.",
-      pickupPoints: [
-        {
-          pickupPointId: 1,
-          tourId: 1,
-          location: "Hotel A",
-          pickupTime: "2023-09-15T09:00:00.000Z",
-        },
-      ],
-      itineraries: [
-        {
-          itineraryId: 1,
-          tourId: 1,
-          dayNumber: 1,
-          date: "2023-09-15T00:00:00.000Z",
-          destinationId: 1,
-          dailySchedules: [
-            {
-              scheduleId: 1,
-              itineraryId: 1,
-              timing: "09:00 AM",
-              activity: "Visit Ancient Temple",
-              place: "Temple A",
-            },
-            {
-              scheduleId: 1,
-              itineraryId: 1,
-              timing: "05:00  PM",
-              activity: "Play in the beach",
-              place: "Marina Beach",
-            },
-          ],
-        },
-        {
-          itineraryId: 2,
-          tourId: 1,
-          dayNumber: 2,
-          date: "2023-09-15T00:00:00.000Z",
-          destinationId: 2,
-          dailySchedules: [
-            {
-              scheduleId: 1,
-              itineraryId: 2,
-              timing: "09:00 AM",
-              activity: "Visit Ancient Temple",
-              place: "Temple A",
-            },
-          ],
-        },
-        {
-          itineraryId: 3,
-          tourId: 1,
-          dayNumber: 3,
-          date: "2023-09-15T00:00:00.000Z",
-          destinationId: 3,
-          dailySchedules: [
-            {
-              scheduleId: 1,
-              itineraryId: 3,
-              timing: "09:00 AM",
-              activity: "Visit Ancient Temple",
-              place: "Temple A",
-            },
-          ],
-        },
-      ],
-      tourDestination: [
-        {
-          id: 1,
-          tourId: 1,
-          destinationId: 1,
-          destinationimage: "https://example.com/images/destination1.jpg",
-          destinationActivity: "Historical Sites",
-        },
-        {
-          id: 4,
-          tourId: 1,
-          destinationId: 4,
-          destinationimage: "https://example.com/images/destination1.jpg",
-          destinationActivity: "Historical Sites",
-        },
-        {
-          id: 1,
-          tourId: 1,
-          destinationId: 7,
-          destinationimage: "https://example.com/images/destination1.jpg",
-          destinationActivity: "Historical Sites",
-        },
-      ],
-      tourInclusion: [
-        {
-          id: 1,
-          tourId: 1,
-          inclusionId: 101,
-        },
-        {
-          id: 1,
-          tourId: 1,
-          inclusionId: 102,
-        },
-        {
-          id: 1,
-          tourId: 1,
-          inclusionId: 103,
-        },
-      ],
-      tourExclusion: [
-        {
-          id: 1,
-          tourId: 1,
-          exclusionId: 101,
-        },
-      ],
-    };
+    //   if (currentDate < departureDate) {
+    //     return 'Upcoming';
+    //   } else if (currentDate >= departureDate && currentDate <= returnDate) {
+    //     return 'Ongoing';
+    //   } else {
+    //     return 'Completed';
+    //   }
+    // };
     
-    const Inclusion = [
-      {
-        inclusionId: 101,
-        inclusionDescription: "Free BreakFast",
-        tourInclusion: null,
-      },
-      {
-        inclusionId: 102,
-        inclusionDescription: "Admission to the sites",
-        tourInclusion: null,
-      },
-      {
-        inclusionId: 103,
-        inclusionDescription: "Transportation",
-        tourInclusion: null,
-      },
-    ];
-    
-    const Exclusions = [
-      {
-        exclusionId: 101,
-        exclusionDescription: "Tips",
-        tourExclusion: null,
-      },
-      {
-        exclusionId: 102,
-        exclusionDescription: "Personal expense",
-        tourExclusion: null,
-      },
-    ];
-    
-    const destinations = [
-      {
-        destinationId: 1,
-        destinationCityName: "Kolkata",
-        country: "India",
-        tourDestinations: null,
-      },
-      {
-        destinationId: 4,
-        destinationCityName: "Houston",
-        country: "USA",
-        tourDestinations: null,
-      },
-      {
-        destinationId: 7,
-        destinationCityName: "Los Vegas",
-        country: "USA",
-        tourDestinations: null,
-      },
-      {
-        destinationId: 9,
-        destinationCityName: "string",
-        country: "string",
-        tourDestinations: null,
-      },
-    ];
 
     // var GetAllTours = () => {
     //   fetch("http://localhost:5027/api/", {

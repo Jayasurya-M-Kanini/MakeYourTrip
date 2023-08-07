@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using TourPackageMicroservice.Models;
 
 public class TourDestination
 {
+    [Key]
     public int Id { get; set; }
 
     public int TourId { get; set; }

@@ -7,12 +7,13 @@ namespace TourPackageMicroService.Models
 {
     public class PickupPoint
     {
+        [Key]
         public int PickupPointId { get; set; }
-        [Required]
 
         public int TourId { get; set; }
         [ForeignKey("TourId")]
         [JsonIgnore]
+
         public TourDetails? Tour { get; set; }
 
         [Required]

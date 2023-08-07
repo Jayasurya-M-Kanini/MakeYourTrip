@@ -43,14 +43,22 @@
 
 import React from 'react';
 import { Modal, Typography, Button } from 'antd';
-
+import { useNavigate } from 'react-router-dom';
 const SuccessModal = ({ visible, onClose }) => {
+
+  const navigate=useNavigate();
+
+  const handleOk=()=>{
+    localStorage.removeItem("bookedCapacity");
+    onClose();
+    navigate("/tourpage/bookingpage/ticket");
+  }
   return (
     <Modal
       open={true}
 onCancel={onClose}
       footer={[
-        <Button key="ok" type="primary" onClick={onClose}>
+        <Button key="ok" type="primary" onClick={handleOk}>
           Ok
         </Button>
       ]}

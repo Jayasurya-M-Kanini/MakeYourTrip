@@ -116,7 +116,7 @@ namespace TourPackageMicroservice.Models
                 tourdetails.TourPrice = updatedtourDetails.TourPrice;
                 tourdetails.MaxCapacity = updatedtourDetails.MaxCapacity;
                 tourdetails.BookedCapacity = updatedtourDetails.BookedCapacity;
-                if(updatedtourDetails.MaxCapacity== updatedtourDetails.BookedCapacity)
+                if(updatedtourDetails.MaxCapacity<=updatedtourDetails.BookedCapacity)
                 {
                     tourdetails.Availability = "Closed";
                 }

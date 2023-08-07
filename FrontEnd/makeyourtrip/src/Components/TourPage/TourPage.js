@@ -4,199 +4,298 @@ import "../LandingPage/LandingPage.css";
 import Navbar from "../Navbar/Navbar";
 import "./TourPage.css";
 import { useState } from "react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const tour = {
-  tourId: 1,
-  travelAgentId: 101,
-  tourName: "Exploring Ancient Ruins",
-  tourDescription: "Discover ancient civilizations through their ruins.",
-  tourtype: "Historical",
-  departureDate: "2023-09-15T10:00:00.000Z",
-  returnDate: "2023-09-25T18:00:00.000Z",
-  durationInDays: 11,
-  tourPrice: 1200,
-  maxCapacity: 20,
-  bookedCapacity: 8,
-  availability: "Available",
-  imageUrl:
-    "https://images.unsplash.com/photo-1496297485239-4265d2ba2105?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1967&q=80",
-  accomodationStatus: "Included",
-  cancellationPolicy: "Free",
-  bookingRestriction: 3,
-  healthAndSafety: "Enhanced safety measures in place.",
-  pickupPoints: [
-    {
-      pickupPointId: 1,
-      tourId: 1,
-      location: "Hotel A",
-      pickupTime: "2023-09-15T09:00:00.000Z",
-    },
-  ],
-  itineraries: [
-    {
-      itineraryId: 1,
-      tourId: 1,
-      dayNumber: 1,
-      date: "2023-09-15T00:00:00.000Z",
-      destinationId: 1,
-      dailySchedules: [
-        {
-          scheduleId: 1,
-          itineraryId: 1,
-          timing: "09:00 AM",
-          activity: "Visit Ancient Temple",
-          place: "Temple A",
-        },
-        {
-          scheduleId: 1,
-          itineraryId: 1,
-          timing: "05:00  PM",
-          activity: "Play in the beach",
-          place: "Marina Beach",
-        },
-      ],
-    },
-    {
-      itineraryId: 2,
-      tourId: 1,
-      dayNumber: 2,
-      date: "2023-09-15T00:00:00.000Z",
-      destinationId: 2,
-      dailySchedules: [
-        {
-          scheduleId: 1,
-          itineraryId: 2,
-          timing: "09:00 AM",
-          activity: "Visit Ancient Temple",
-          place: "Temple A",
-        },
-      ],
-    },
-    {
-      itineraryId: 3,
-      tourId: 1,
-      dayNumber: 3,
-      date: "2023-09-15T00:00:00.000Z",
-      destinationId: 3,
-      dailySchedules: [
-        {
-          scheduleId: 1,
-          itineraryId: 3,
-          timing: "09:00 AM",
-          activity: "Visit Ancient Temple",
-          place: "Temple A",
-        },
-      ],
-    },
-  ],
-  tourDestination: [
-    {
-      id: 1,
-      tourId: 1,
-      destinationId: 1,
-      destinationimage: "https://example.com/images/destination1.jpg",
-      destinationActivity: "Historical Sites",
-    },
-    {
-      id: 4,
-      tourId: 1,
-      destinationId: 4,
-      destinationimage: "https://example.com/images/destination1.jpg",
-      destinationActivity: "Historical Sites",
-    },
-    {
-      id: 1,
-      tourId: 1,
-      destinationId: 7,
-      destinationimage: "https://example.com/images/destination1.jpg",
-      destinationActivity: "Historical Sites",
-    },
-  ],
-  tourInclusion: [
-    {
-      id: 1,
-      tourId: 1,
-      inclusionId: 101,
-    },
-    {
-      id: 1,
-      tourId: 1,
-      inclusionId: 102,
-    },
-    {
-      id: 1,
-      tourId: 1,
-      inclusionId: 103,
-    },
-  ],
-  tourExclusion: [
-    {
-      id: 1,
-      tourId: 1,
-      exclusionId: 101,
-    },
-  ],
-};
+// const tour = {
+//   tourId: 1,
+//   travelAgentId: 101,
+//   tourName: "Exploring Ancient Ruins",
+//   tourDescription: "Discover ancient civilizations through their ruins.",
+//   tourtype: "Historical",
+//   departureDate: "2023-09-15T10:00:00.000Z",
+//   returnDate: "2023-09-25T18:00:00.000Z",
+//   durationInDays: 11,
+//   tourPrice: 1200,
+//   maxCapacity: 20,
+//   bookedCapacity: 8,
+//   availability: "Available",
+//   imageUrl:
+//     "https://images.unsplash.com/photo-1496297485239-4265d2ba2105?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1967&q=80",
+//   accomodationStatus: "Included",
+//   cancellationPolicy: "Free",
+//   bookingRestriction: 3,
+//   healthAndSafety: "Enhanced safety measures in place.",
+//   pickupPoints: [
+//     {
+//       pickupPointId: 1,
+//       tourId: 1,
+//       location: "Hotel A",
+//       pickupTime: "2023-09-15T09:00:00.000Z",
+//     },
+//   ],
+//   itineraries: [
+//     {
+//       itineraryId: 1,
+//       tourId: 1,
+//       dayNumber: 1,
+//       date: "2023-09-15T00:00:00.000Z",
+//       destinationId: 1,
+//       dailySchedules: [
+//         {
+//           scheduleId: 1,
+//           itineraryId: 1,
+//           timing: "09:00 AM",
+//           activity: "Visit Ancient Temple",
+//           place: "Temple A",
+//         },
+//         {
+//           scheduleId: 1,
+//           itineraryId: 1,
+//           timing: "05:00  PM",
+//           activity: "Play in the beach",
+//           place: "Marina Beach",
+//         },
+//       ],
+//     },
+//     {
+//       itineraryId: 2,
+//       tourId: 1,
+//       dayNumber: 2,
+//       date: "2023-09-15T00:00:00.000Z",
+//       destinationId: 2,
+//       dailySchedules: [
+//         {
+//           scheduleId: 1,
+//           itineraryId: 2,
+//           timing: "09:00 AM",
+//           activity: "Visit Ancient Temple",
+//           place: "Temple A",
+//         },
+//       ],
+//     },
+//     {
+//       itineraryId: 3,
+//       tourId: 1,
+//       dayNumber: 3,
+//       date: "2023-09-15T00:00:00.000Z",
+//       destinationId: 3,
+//       dailySchedules: [
+//         {
+//           scheduleId: 1,
+//           itineraryId: 3,
+//           timing: "09:00 AM",
+//           activity: "Visit Ancient Temple",
+//           place: "Temple A",
+//         },
+//       ],
+//     },
+//   ],
+//   tourDestination: [
+//     {
+//       id: 1,
+//       tourId: 1,
+//       destinationId: 1,
+//       destinationimage: "https://example.com/images/destination1.jpg",
+//       destinationActivity: "Historical Sites",
+//     },
+//     {
+//       id: 4,
+//       tourId: 1,
+//       destinationId: 4,
+//       destinationimage: "https://example.com/images/destination1.jpg",
+//       destinationActivity: "Historical Sites",
+//     },
+//     {
+//       id: 1,
+//       tourId: 1,
+//       destinationId: 7,
+//       destinationimage: "https://example.com/images/destination1.jpg",
+//       destinationActivity: "Historical Sites",
+//     },
+//   ],
+//   tourInclusion: [
+//     {
+//       id: 1,
+//       tourId: 1,
+//       inclusionId: 101,
+//     },
+//     {
+//       id: 1,
+//       tourId: 1,
+//       inclusionId: 102,
+//     },
+//     {
+//       id: 1,
+//       tourId: 1,
+//       inclusionId: 103,
+//     },
+//   ],
+//   tourExclusion: [
+//     {
+//       id: 1,
+//       tourId: 1,
+//       exclusionId: 101,
+//     },
+//   ],
+// };
 
-const Inclusion = [
-  {
-    inclusionId: 101,
-    inclusionDescription: "Free BreakFast",
-    tourInclusion: null,
-  },
-  {
-    inclusionId: 102,
-    inclusionDescription: "Admission to the sites",
-    tourInclusion: null,
-  },
-  {
-    inclusionId: 103,
-    inclusionDescription: "Transportation",
-    tourInclusion: null,
-  },
-];
+// const Inclusion = [
+//   {
+//     inclusionId: 101,
+//     inclusionDescription: "Free BreakFast",
+//     tourInclusion: null,
+//   },
+//   {
+//     inclusionId: 102,
+//     inclusionDescription: "Admission to the sites",
+//     tourInclusion: null,
+//   },
+//   {
+//     inclusionId: 103,
+//     inclusionDescription: "Transportation",
+//     tourInclusion: null,
+//   },
+// ];
 
-const Exclusions = [
-  {
-    exclusionId: 101,
-    exclusionDescription: "Tips",
-    tourExclusion: null,
-  },
-  {
-    exclusionId: 102,
-    exclusionDescription: "Personal expense",
-    tourExclusion: null,
-  },
-];
+// const Exclusions = [
+//   {
+//     exclusionId: 101,
+//     exclusionDescription: "Tips",
+//     tourExclusion: null,
+//   },
+//   {
+//     exclusionId: 102,
+//     exclusionDescription: "Personal expense",
+//     tourExclusion: null,
+//   },
+// ];
 
-const destinations = [
-  {
-    destinationId: 1,
-    destinationCityName: "Kolkata",
-    country: "India",
-    tourDestinations: null,
-  },
-  {
-    destinationId: 4,
-    destinationCityName: "Houston",
-    country: "USA",
-    tourDestinations: null,
-  },
-  {
-    destinationId: 7,
-    destinationCityName: "Los Vegas",
-    country: "USA",
-    tourDestinations: null,
-  },
-  {
-    destinationId: 9,
-    destinationCityName: "string",
-    country: "string",
-    tourDestinations: null,
-  },
-];
+// const destinations = [
+//   {
+//     destinationId: 1,
+//     destinationCityName: "Kolkata",
+//     country: "India",
+//     tourDestinations: null,
+//   },
+//   {
+//     destinationId: 4,
+//     destinationCityName: "Houston",
+//     country: "USA",
+//     tourDestinations: null,
+//   },
+//   {
+//     destinationId: 7,
+//     destinationCityName: "Los Vegas",
+//     country: "USA",
+//     tourDestinations: null,
+//   },
+//   {
+//     destinationId: 9,
+//     destinationCityName: "string",
+//     country: "string",
+//     tourDestinations: null,
+//   },
+// ];
 
 function TourPage() {
+
+  const[tour,setTour]=useState();
+
+  const[destinations,setdestinations]=useState([]);
+  const[Inclusion,setInclusion]=useState([]);
+  const[Exclusion,setExclusion]=useState([]);
+  const[newPrice,setNewPrice]=useState();
+  const [id,setId]= useState(localStorage.getItem("tourId"))
+  // localStorage.removeItem("tourId");
+  // const id = localStorage.getItem("tourId"); 
+
+  const handlereserve =() =>{
+    localStorage.setItem("quantity",quantity);
+  }
+
+  var GetAllTours = () => {
+    fetch(`http://localhost:5246/api/TourDetails/${id}`, {
+      method: "GET",
+      headers: {
+        accept: "text/plain",
+        // Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    }).then(async (data) => {
+      var myData = await data.json();
+      console.log(myData);
+      //   const filtered = myData.filter(booking => booking.userId === userId);
+      //   console.log(filtered);
+      setTour(myData);
+      console.log(quantity);
+      const calculatedPrice = quantity * myData.tourPrice;
+      setNewPrice(calculatedPrice);
+    });
+  };
+  useEffect(()=>{
+    GetAllTours();
+  },[tour])
+
+
+  var GetAllDestinations = () => {
+    console.log(destinations);
+    fetch("http://localhost:5246/api/Destinations", {
+      method: "GET",
+      headers: {
+        accept: "text/plain",
+        // Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    }).then(async (data) => {
+      var myData = await data.json();
+      console.log(myData);
+      //   const filtered = myData.filter(booking => booking.userId === userId);
+      //   console.log(filtered);
+      setdestinations(myData);
+    });
+  };
+  useEffect(()=>{
+    GetAllDestinations();
+  },[destinations])
+
+  var GetAllInclusions = () => {
+    fetch("http://localhost:5246/api/Inclusions", {
+      method: "GET",
+      headers: {
+        accept: "text/plain",
+        // Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    }).then(async (data) => {
+      var myData = await data.json();
+      console.log(myData);
+      //   const filtered = myData.filter(booking => booking.userId === userId);
+      //   console.log(filtered);
+      setInclusion(myData);
+    });
+  };
+  useEffect(()=>{
+    GetAllInclusions();
+  },[Inclusion])
+
+  var GetAllExclusion = () => {
+    fetch("http://localhost:5246/api/Exclusions", {
+      method: "GET",
+      headers: {
+        accept: "text/plain",
+        // Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    }).then(async (data) => {
+      var myData = await data.json();
+      console.log(myData);
+      //   const filtered = myData.filter(booking => booking.userId === userId);
+      //   console.log(filtered);
+      setExclusion(myData);
+    });
+  };
+  useEffect(()=>{
+    GetAllExclusion();
+  },[Exclusion])
+
+
   const getInclusionName = (id) => {
     console.log(id);
     const inclusion = Inclusion.find((item) => item.inclusionId === id);
@@ -205,7 +304,7 @@ function TourPage() {
 
   const getExclusionName = (id) => {
     console.log(id);
-    const inclusion = Exclusions.find((item) => item.exclusionId === id);
+    const inclusion = Exclusion.find((item) => item.exclusionId === id);
     return inclusion ? inclusion.exclusionDescription : "";
   };
 
@@ -263,14 +362,14 @@ function TourPage() {
     }
   };
 
-  const newPrice = quantity * tour.tourPrice;
 
+// const newPrice=10000;
 
   return (
     <div style={{ backgroundColor: "#F5F5F5" }}>
       <headers>
         <Navbar />
-        <div
+        {/* <div
           class="search-hero-container"
           style={{
             height: "35rem",
@@ -283,8 +382,25 @@ function TourPage() {
             alignItems: "center",
             marginBottom: "2rem",
           }}
-        ></div>
+        ></div> */}
+        {tour && tour.imageUrl && (
+          <div
+            className="search-hero-container"
+            style={{
+              height: "35rem",
+              backgroundImage: `url(${tour.imageUrl})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: "2rem",
+            }}
+          ></div>
+        )}
       </headers>
+      {tour && (
       <div className="search-main-pan" id="tour-main-pan">
         <div className="main-div-2" id="tour-main-div-2">
           <div className="tour-div-1-filter-1" id="tour-main-div-filter-1">
@@ -581,12 +697,14 @@ function TourPage() {
                 </div>
               </div>
               <div>
-              <button className="my-btn" style={{marginRight:"0.85rem"}}>Reserve</button>
+                <Link to="/tourpage/bookingpage">
+                <button className="my-btn" onClick={handlereserve} style={{marginRight:"0.85rem"}}>Reserve</button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>)}
       <footer style={{ marginTop: "3rem" }}>
         <Footer />
       </footer>

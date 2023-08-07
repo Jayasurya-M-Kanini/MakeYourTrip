@@ -18,7 +18,7 @@ namespace BookingMicroService.Services
         {
             try
             {
-                booking.BookingStatus = "Upcoming";
+                booking.BookingStatus = "Pending";
                 await _bookingRepo.Add(booking);
                 return booking;
             }
