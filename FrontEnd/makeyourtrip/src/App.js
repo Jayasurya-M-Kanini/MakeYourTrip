@@ -23,6 +23,7 @@ import AdminProfilePage from './Components/BasicCard/ProfilePage/AdminProfile';
 import AgentProfile from './Components/BasicCard/ProfilePage/AgentProfile';
 import ApproveAgent from './Components/ApproveAgents/ApproveAgents';
 import AdminGallery from './Components/AdminGallery/AdminGallery';
+import Contact from './Components/Contact/Contact';
 
 function App() {
   return (
@@ -44,8 +45,11 @@ function App() {
     <Route path="/" element={<LandingPage/>}/>
     <Route path="/searchPage" element={<SearchPage/>} />
     <Route path="/tourpage" element={<TourPage/>} />
+    <Route path="/about" element={<Contact/>} />
+
     <Route path="/tourpage/bookingpage" element={<BookingPage/>} />
     <Route path="/tourpage/bookingpage/ticket" element={<BookingConfirm/>} />
+
     <Route path="/profile" element={<ProfilePage/>} />
     <Route path="/AddTours" element={<TourPackage/>} />
     <Route path="/AgentProfile" element={<AgentProfilePage/>} />
