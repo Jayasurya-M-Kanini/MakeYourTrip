@@ -147,7 +147,7 @@ return (
           </Link>
         </li>
         <li>
-          <Link to="/" className="my-navbar-links scroll-link">
+          <Link to="/AdminGallery" className="my-navbar-links scroll-link">
             Gallery
           </Link>
         </li>

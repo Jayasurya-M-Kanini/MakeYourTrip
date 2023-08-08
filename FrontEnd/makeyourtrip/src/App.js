@@ -22,6 +22,7 @@ import AgentProfilePage from './Components/BasicCard/ProfilePage/AgentProfile';
 import AdminProfilePage from './Components/BasicCard/ProfilePage/AdminProfile';
 import AgentProfile from './Components/BasicCard/ProfilePage/AgentProfile';
 import ApproveAgent from './Components/ApproveAgents/ApproveAgents';
+import AdminGallery from './Components/AdminGallery/AdminGallery';
 
 function App() {
   return (
@@ -49,6 +50,8 @@ function App() {
     <Route path="/AddTours" element={<TourPackage/>} />
     <Route path="/AgentProfile" element={<AgentProfilePage/>} />
     <Route path="/AdminProfile" element={<AdminProfilePage/>} />
+    <Route path="/AdminGallery" element={<AdminGallery/>} />
+
     <Route path="/AgentProfile" element={<AgentProfile/>} />
     <Route path="/ApproveAgents" element={<ApproveAgent/>} />
 
