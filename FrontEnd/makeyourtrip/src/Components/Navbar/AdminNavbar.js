@@ -137,7 +137,7 @@ return (
           </Link>
         </li>
         <li>
-          <Link to="/" className="my-navbar-links scroll-link">
+          <Link to="/ApproveAgents" className="my-navbar-links scroll-link">
             Agents
           </Link>
         </li>
