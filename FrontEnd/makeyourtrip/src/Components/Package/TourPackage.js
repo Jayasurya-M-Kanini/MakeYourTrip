@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
-import AdminNavbar from "../Navbar/AdminNavbar";
-import AgentNavbar from "../Navbar/AdminNavbar";
+import AdminNavbar from "../Navbar/AgentNavbar";
+import AgentNavbar from "../Navbar/AgentNavbar";
 
 function TourPackage() {
     const[destinations,setdestinations]=useState([]);

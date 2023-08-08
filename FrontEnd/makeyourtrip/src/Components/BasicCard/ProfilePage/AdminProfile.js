@@ -4,40 +4,40 @@ import Navbar from "../../Navbar/Navbar";
 import profileimage from "../ProfileImage/profile-img.jpg"
 import BookingTable from "../Tables/BookingTable";
 import { useState,useEffect } from "react";
+import AdminNavbar from "../../Navbar/AdminNavbar";
+import AgentNavbar from "../../Navbar/AgentNavbar";
 
-const ProfilePage = () => {
+const AdminProfilePage = () => {
     const [profile, setProfile] = useState();
 
-    const emailId = localStorage.getItem("emailId");
-
+    // const userEmail= localStorage.getItem("emailId");
+    const emailId="jai123@gmail.com";
+    
+    
     var GetProfile = () => {
-      fetch(`http://localhost:5279/api/Traveller/Traveller_Profile?key=${emailId}`, {
-        method: "GET",
-        headers: {
-          accept: "text/plain",
-          // Authorization: "Bearer " + localStorage.getItem("Token"),
-        },
-      }).then(async (data) => {
-        var myData = await data.json();
-        console.log(myData);
-        setProfile(myData);
-      });
-    };
-    useEffect(() => {
-      GetProfile();
-    }, [emailId]);
-
-
-  
-  
-
+        fetch(`http://localhost:5279/api/Admin/Admin_Profile?key=${encodeURIComponent(emailId)}`, {
+          method: "GET",
+          headers: {
+            accept: "text/plain",
+            // Authorization: "Bearer " + localStorage.getItem("Token"),
+          },
+        }).then(async (data) => {
+          var myData = await data.json();
+          console.log(myData);
+          setProfile(myData);
+        });
+      };
+      useEffect(() => {
+        GetProfile();
+      }, [emailId]);
+ 
 
 
 
   return (
     <div>
-    <Navbar />
-    <div className="container" style={{ marginTop: "7rem" }}>
+      <AdminNavbar/>
+      <div className="container" style={{ marginTop: "7rem" }}>
       <div className="row no-gutters">
         <div className="col-md-12 col-lg-12">
           {profile && (
@@ -66,16 +66,17 @@ const ProfilePage = () => {
           marginBottom: "2rem",
         }}
       >
+        {profile &&(
         <button className="my-btn" style={{ width: "100%" }}>
-          Bookings
+          Welcome {profile.name}
         </button>
+        )}
       </div>
       <div className="booking-table">
-        <BookingTable />
       </div>
     </div>
   </div>
 );
 };
 
-export default ProfilePage;
+export default AdminProfilePage;

@@ -19,6 +19,9 @@ import BookingConfirm from './Components/BookingConfirmPage/BookingConfirm';
 import Package from './Components/Package/Package';
 import TourPackage from './Components/Package/TourPackage';
 import AgentProfilePage from './Components/BasicCard/ProfilePage/AgentProfile';
+import AdminProfilePage from './Components/BasicCard/ProfilePage/AdminProfile';
+import AgentProfile from './Components/BasicCard/ProfilePage/AgentProfile';
+import ApproveAgent from './Components/ApproveAgents/ApproveAgents';
 
 function App() {
   return (
@@ -45,6 +48,11 @@ function App() {
     <Route path="/profile" element={<ProfilePage/>} />
     <Route path="/AddTours" element={<TourPackage/>} />
     <Route path="/AgentProfile" element={<AgentProfilePage/>} />
+    <Route path="/AdminProfile" element={<AdminProfilePage/>} />
+    <Route path="/AgentProfile" element={<AgentProfile/>} />
+    <Route path="/ApproveAgents" element={<ApproveAgent/>} />
+
+
 
      </Routes>  
     </BrowserRouter>  

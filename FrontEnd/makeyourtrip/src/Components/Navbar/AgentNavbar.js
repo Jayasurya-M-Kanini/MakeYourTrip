@@ -10,7 +10,7 @@ import { Menu, Dropdown, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 
-function AdminNavbar() {
+function AgentNavbar() {
   const [showList, setShowList] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -85,7 +85,7 @@ function AdminNavbar() {
   const menu = (
     <Menu>
       <Menu.Item key="profile">
-        <Link to="/AdminProfile">Profile</Link>
+        <Link to="/AgentProfile">Profile</Link>
       </Menu.Item>
       <Menu.Item key="logout">
         <Link onClick={handleLogout} to="/">Logout</Link>
@@ -128,7 +128,7 @@ return (
         style={{ marginBottom: "0rem" }}
       >
         <li>
-          <Link to="/AdminProfile"
+          <Link to="/AgentProfile"
             style={{ textDecoration: "none" }}
            
             className="my-navbar-links scroll-link"
@@ -137,21 +137,26 @@ return (
           </Link>
         </li>
         <li>
-          <Link to="/" className="my-navbar-links scroll-link">
-            Agents
+          <Link to="/AddTours" className="my-navbar-links scroll-link">
+            Tours
           </Link>
         </li>
         <li>
-          <Link to="/" className="my-navbar-links scroll-link">
-            Users
+          <Link to="" className="my-navbar-links scroll-link">
+            Packages
           </Link>
         </li>
         <li>
-          <Link to="/" className="my-navbar-links scroll-link">
-            Gallery
+          <Link to="" className="my-navbar-links scroll-link">
+            Destinations
           </Link>
         </li>
-        <div class="my-navbar-social-icons" style={{ marginLeft: isLoggedIn ? "15rem" : "10rem" }}>
+        <li>
+          <Link to="" className="my-navbar-links scroll-link">
+            Upload
+          </Link>
+        </li>
+        <div class="my-navbar-social-icons" style={{ marginLeft: isLoggedIn ? "10rem" : "10rem" }}>
           <span>
             {isLoggedIn ? (
               <div
@@ -177,7 +182,7 @@ return (
               <Dropdown overlay={menu}>
                 <span style={{ cursor: "pointer" }}>
                   <Space>
-                    Hi, Admin <DownOutlined />
+                    Hi, Agent <DownOutlined />
                   </Space>
                 </span>
               </Dropdown>
@@ -222,4 +227,4 @@ return (
 );
 }
 
-export default AdminNavbar;
+export default AgentNavbar;
