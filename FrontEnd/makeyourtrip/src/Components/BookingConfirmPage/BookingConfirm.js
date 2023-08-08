@@ -11,6 +11,8 @@ const BookingConfirm = () => {
     const tourId=localStorage.getItem("tourId");
     const bookingId=localStorage.getItem("bookingId");
     const[tour,setTour]=useState();
+    const[booking,setBooking]=useState();
+
     const[newPrice,setNewPrice]=useState();
     const[destinations,setdestinations]=useState([]);
     const [pdfDownloading, setPdfDownloading] = useState(false); // Track PDF downloading
@@ -59,6 +61,27 @@ const BookingConfirm = () => {
       useEffect(()=>{
         GetAllDestinations();
       },[destinations])
+
+      var GetBooking = () => {
+        console.log(booking);
+        fetch(`http://localhost:5027/api/Booking/GetBoooking?id=${bookingId}`, {
+          method: "GET",
+          headers: {
+            accept: "text/plain",
+            // Authorization: "Bearer " + localStorage.getItem("Token"),
+          },
+        }).then(async (data) => {
+          var myData = await data.json();
+          console.log(myData);
+          //   const filtered = myData.filter(booking => booking.userId === userId);
+          //   console.log(filtered);
+          setBooking(myData);
+        });
+      };
+
+      useEffect(()=>{
+        GetBooking();
+      },[bookingId])
 
       const getDay = (dateString) => {
         const date = new Date(dateString);
@@ -170,7 +193,13 @@ ref={ticketRef}
             trip<span style={{ color: "#2493e0" }}>.</span>
           </h3>
                  {/* </span> */}
-            <span className="u-upper ticket__co-subname"><h1 style={{color:"green"}}>Booking Succesful</h1></span>
+                 <span className="u-upper ticket__co-subname">
+                 {booking && (
+                            <h1 style={{ color: booking.bookingStatus === 'Completed' ? 'green' : 'red' }}>
+                                {booking.bookingStatus}
+                            </h1>
+                        )}   
+</span>
           </div>
         </div>
         {tour && (
@@ -184,7 +213,7 @@ ref={ticketRef}
         </p>
 
         <p>
-        {tour.tourDestination.map((option) => (
+        {/* {tour.tourDestination.map((option) => (
                 <div
                   style={{
                     width: "6rem",
@@ -198,7 +227,22 @@ ref={ticketRef}
                   {getDestination(option.destinationId)}
                 </div>
               ))}
-        </p>
+        </p> */}
+          {tour && tour.tourDestination && tour.tourDestination.map((option) => (
+    <div
+      style={{
+        width: "6rem",
+        height: "2.4rem",
+        padding: "0.4rem",
+        border: "2px solid gray",
+        borderRadius: "3rem",
+        textAlign: "center",
+      }}
+    >
+      {getDestination(option.destinationId)}
+    </div>
+  ))}
+</p>
         <p>
           <span class="u-upper ticket__small-label">Start</span>
           <span class="ticket__detail">{getMonthAbbreviation(tour.departureDate)} {getDate(tour.departureDate)}</span>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./IndianStates.css";
 import "../CountriesSlider/Slider.css"
 import "../LandingPage/LandingPage.css"
+import { Link } from "react-router-dom";
 
 const IndianStates = () => {
   const [activePanelIndex, setActivePanelIndex] = useState(0);
@@ -61,9 +62,9 @@ const IndianStates = () => {
       ))}
     </div>
     <div class="tour-btn" style={{marginTop:"2rem"}}>
-    <a href="#" class="my-btn">
+    <Link to="/searchPage" class="my-btn">
           Explore India
-    </a>
+    </Link>
 </div>
     </div>
   );

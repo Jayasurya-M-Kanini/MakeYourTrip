@@ -1,6 +1,6 @@
 import BasicCard from "../BasicCard/BasicCard";
 import "../LandingPage/LandingPage.css";
-
+import { Link } from "react-router-dom";
 
 
 function Destination() {
@@ -11,9 +11,9 @@ function Destination() {
 </div>
 <BasicCard/>
 <div class="tour-btn">
-    <a href="#" class="my-btn">
+    <Link to="/searchPage" class="my-btn">
           more tours
-    </a>
+    </Link>
 </div>
 </section>
   );

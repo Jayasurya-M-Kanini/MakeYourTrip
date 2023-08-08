@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import '../CountriesSlider/Slider.css';
 import CarouselItem from '../CountriesSlider/CarouselItem';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
 const citiesData = [
   {
@@ -81,11 +82,11 @@ const MainSlider = () => {
         <h1>Trending International Cities</h1>
         <p>We are a team of humans with the strategy, tools, and solutions and digital products.</p>
       </div>
-      <div className="owl-carousel owl-theme" ref={carouselRef}>
+      <Link to="/searchPage" className="owl-carousel owl-theme" ref={carouselRef}>
         {citiesData.map((cityData, index) => (
           <CarouselItem key={index} cityData={cityData} />
         ))}
-      </div>
+      </Link>
     </div>
   );
 };

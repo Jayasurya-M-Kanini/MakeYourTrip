@@ -4,8 +4,10 @@ import Navbar from "../../Navbar/Navbar";
 import profileimage from "../ProfileImage/profile-img.jpg"
 import BookingTable from "../Tables/BookingTable";
 import { useState,useEffect } from "react";
+import AdminNavbar from "../../Navbar/AdminNavbar";
+import AgentNavbar from "../../Navbar/AdminNavbar";
 
-const ProfilePage = () => {
+const AgentProfilePage = () => {
     const [Bookings, setBookings] = useState([]);
 
     const userId = 3;
@@ -100,7 +102,7 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <Navbar />
+      <AgentNavbar/>
       <div className="container" style={{ marginTop: "7rem" }}>
         <div className="row no-gutters">
           {/* <div className="col-md-4 col-lg-4">
@@ -119,7 +121,7 @@ const ProfilePage = () => {
                 <h6 style={{paddingLeft:"2.1rem"}}>EmailId | Phone Number</h6>
               </div>
               
-              {/* <div className="d-flex flex-row text-white">
+              <div className="d-flex flex-row text-white">
                 <div className="p-4 bg-primary text-center skill-block">
                   <h4>{filteredCount}</h4>
                   <h6>Total Bookings</h6>
@@ -135,21 +137,21 @@ const ProfilePage = () => {
                 <div className="p-3 bg-danger text-center skill-block">
                   <h4>75%</h4>
                   <h6>PHP</h6>
-                </div>  */}
-              {/* </div> */}
+                </div>  
+               </div>
             </div>
           </div>
         </div>
-        <div style={{width:"100%",display:"flex",justifyContent:"space-around",alignItems:"center",flexWrap:"wrap",gap:"1rem",marginTop:"2rem",marginBottom:"2rem"}}>
-            <button className='my-btn' style={{width:"100%"}}>Bookings</button>
-            {/* <button className='my-btn' style={{width:"49%"}}>Edit Profile</button> */}
-        </div>
-        <div className="booking-table">
+        {/* <div style={{width:"100%",display:"flex",justifyContent:"space-around",alignItems:"center",flexWrap:"wrap",gap:"1rem",marginTop:"2rem",marginBottom:"2rem"}}>
+            <button className='my-btn' style={{width:"49.7%"}}>Bookings</button>
+            <button className='my-btn' style={{width:"49%"}}>Edit Profile</button>
+        </div> */}
+        {/* <div className="booking-table">
             <BookingTable/>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
-export default ProfilePage;
+export default AgentProfilePage;

@@ -18,10 +18,12 @@ import { Routes } from 'react-router-dom';
 import BookingConfirm from './Components/BookingConfirmPage/BookingConfirm';
 import Package from './Components/Package/Package';
 import TourPackage from './Components/Package/TourPackage';
+import AgentProfilePage from './Components/BasicCard/ProfilePage/AgentProfile';
 
 function App() {
   return (
     <div>
+
       {/* <LandingPage/> */}
       {/* <Login/> */}
       {/* <Maps/> */}
@@ -32,29 +34,25 @@ function App() {
       {/* <ProfilePage/> */}
       {/* <BookingTable/> */}
         {/* <ToastContainer /> */}
-      {/* <BrowserRouter>
+ <BrowserRouter>
     
-      <Routes>
-        <Route path="/" element={<LandingPage/>} />
-        
-        <Route path="/searchPage" element={<SearchPage/>} />
-        <Route path="/tourpage" element={<TourPage/>} />
-        <Route path="/tourpage/bookingpage" element={<BookingPage/>} />
-        <Route path="/tourpage/bookingpage/ticket" element={<BookingConfirm/>} />
-        <Route path="/profile" element={<ProfilePage/>} /> */}
+    <Routes>
+    <Route path="/" element={<LandingPage/>}/>
+    <Route path="/searchPage" element={<SearchPage/>} />
+    <Route path="/tourpage" element={<TourPage/>} />
+    <Route path="/tourpage/bookingpage" element={<BookingPage/>} />
+    <Route path="/tourpage/bookingpage/ticket" element={<BookingConfirm/>} />
+    <Route path="/profile" element={<ProfilePage/>} />
+    <Route path="/AddTours" element={<TourPackage/>} />
+    <Route path="/AgentProfile" element={<AgentProfilePage/>} />
 
-
-       
-        {/* <Route path="/ResetPassword" element={<ResetPassword/>} /> */}
-
-        {/* <Route path="/User/*" element={<Nav/>}/> */}
-
-     {/* </Routes> 
-    </BrowserRouter>   */}
+     </Routes>  
+    </BrowserRouter>  
       {/* <BookingPage/> */}
       {/* <BookingConfirm/> */}
       {/* <Package/> */}
-      <TourPackage/>
+
+      
     </div>
   );
 }

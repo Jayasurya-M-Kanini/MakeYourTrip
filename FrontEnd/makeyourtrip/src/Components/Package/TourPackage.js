@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import Navbar from "../Navbar/Navbar";
+import AdminNavbar from "../Navbar/AdminNavbar";
+import AgentNavbar from "../Navbar/AdminNavbar";
 
 function TourPackage() {
     const[destinations,setdestinations]=useState([]);
@@ -319,14 +322,29 @@ function TourPackage() {
         </div>
         <div>
           <label className="addTourInputLable">Destination ID</label>
-          <input
+          {/* <input
             type="number"
             className="addTourInputField"
             value={itinerary.destinationId}
             onChange={(e) =>
               handleInputChange(itineraryIndex, "destinationId", e.target.value)
             }
-          />
+          /> */}
+          <select
+            className="addTourInputField"
+            value={destinations.destinationId}
+            onChange={(e) =>
+              handleInputChange(itineraryIndex, "destinationId", e.target.value)
+            }
+          >
+            <option value="">Select Destination</option>
+            {destinations.map((dest) => (
+              <option key={dest.destinationId} value={dest.destinationId}>
+                {dest.destinationCityName}
+              </option>
+            ))}
+          </select>
+
         </div>
         <div className="tourDailySchedules">
           <h4>Daily Schedules</h4>
@@ -384,7 +402,7 @@ function TourPackage() {
         <div className="tourDestinationDetails">
           <div>
             <label className="addTourInputLabel">Destination Id:</label>
-            <input
+            {/* <input
               type="number"
               className="addTourInputField"
               value={destination.destinationId}
@@ -395,7 +413,25 @@ function TourPackage() {
                   e.target.value
                 )
               }
-            />
+            /> */}
+                      <select
+            className="addTourInputField"
+            value={destinations.destinationId}
+            onChange={(e) =>
+              handleTourDestinationChange(
+                destinationIndex,
+                "destinationId",
+                e.target.value
+              )
+            }
+          >
+            <option value="">Select Destination</option>
+            {destinations.map((dest) => (
+              <option key={dest.destinationId} value={dest.destinationId}>
+                {dest.destinationCityName}
+              </option>
+            ))}
+          </select>
           </div>
           <div>
             <label className="addTourInputLabel">Destination Image:</label>
@@ -464,12 +500,25 @@ function TourPackage() {
       <div key={index} className="tourInclusions">
         <div>
           <label className="addTourInputLable">inclusion {index + 1}</label>
-          <input
+          {/* <input
             type="number"
             className="addTourInputField"
             value={inclusion.inclusionId}
             onChange={(e) => handleInclusionChange(index, e.target.value)}
-          />
+          /> */}
+          <select
+            className="addTourInputField"
+            value={Inclusion.inclusionId}
+            onChange={(e) => handleInclusionChange(index, e.target.value)}
+          >
+            <option value="">Select Inclusions</option>
+            {Inclusion.map((dest) => (
+              <option key={dest.inclusionId} value={dest.inclusionId}>
+                {dest.inclusionDescription}
+              </option>
+            ))}
+          </select>
+          
         </div>
         <div>
           {tourPackage.tourInclusion.length > 1 && (
@@ -514,6 +563,18 @@ function TourPackage() {
             value={exclusion.exclusionId}
             onChange={(e) => handleExclusionChange(index, e.target.value)}
           />
+                    <select
+            className="addTourInputField"
+            value={Exclusion.exclusionId}
+            onChange={(e) => handleExclusionChange(index, e.target.value)}
+          >
+            <option value="">Select Exclusions</option>
+            {Exclusion.map((dest) => (
+              <option key={dest.exclusionId} value={dest.exclusionId}>
+                {dest.exclusionDescription}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           {tourPackage.tourExclusion.length > 1 && (
@@ -610,9 +671,13 @@ function TourPackage() {
 
   return (
     <div className="TourPackage">
-      <div className="CreateTourHeader">
+      <header>
+        <AgentNavbar/>
+        </header>
+
+      <div className="CreateTourHeader" style={{marginTop:"8rem"}}>
         <div>
-          <h1>Create a tour package</h1>
+          <h1 style={{textAlign:"center"}}>Create a tour package</h1>
         </div>
       </div>
 

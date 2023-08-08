@@ -2,6 +2,7 @@ import "../LandingPage/LandingPage.css";
 import bg1 from "../images/bg1.jpg";
 import bg2 from "../images/bg2.jpg";
 import Search from "../Search/Search";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -11,9 +12,9 @@ function Hero() {
           <div class="hero-banner" >
           <h1>indonesia</h1>
           <p>Perfect travel with awesome experience.</p>
-            <a href="#featured" class="my-btn hero-btn scroll-link">
+            <Link to="/searchPage" class="my-btn hero-btn scroll-link">
               Explore Tours
-            </a>
+            </Link>
           </div>
         </div>
         <div class="slideshow">

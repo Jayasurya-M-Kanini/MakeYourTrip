@@ -58,11 +58,11 @@ const Login = ({ onClose }) => {
                 <input type="text" placeholder="Email Address" required />
               </div>
             )}
-            {!isLogin && (
+            {/* {!isLogin && (
               <div className="login-field">
                 <input type="password" placeholder="PhoneNumber" required />
               </div>
-            )}
+            )} */}
             <div className="login-field">
               <input type="password" placeholder="Password" required />
             </div>

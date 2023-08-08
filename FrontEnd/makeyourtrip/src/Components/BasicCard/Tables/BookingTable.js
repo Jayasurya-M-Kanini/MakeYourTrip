@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./BookingTable.css";
 import { useRef } from "react";
-
+import { Link } from "react-router-dom";
 
 function BookingTable() {
   const [statusCounts, setStatusCounts] = useState({
@@ -12,7 +12,7 @@ function BookingTable() {
   });
   //   const navigate = useNavigate();
   const [Bookings, setBookings] = useState([]);
-  const userId = 3;
+  const userId = parseInt(localStorage.getItem("userId"));
   const GetAllTours = async () => {
     const response = await fetch("http://localhost:5246/api/TourDetails", {
       method: "GET",
@@ -102,10 +102,15 @@ function BookingTable() {
   // useEffect(() => {
   //   console.log("bookId in useEffect", bookId);
   // }, [bookId]);
+  const navigate = useNavigate();
 
+  const handleView = (option) => {
+    localStorage.setItem("bookingId", option.bookingId);
+    localStorage.setItem("tourId", option.tourId);
+    navigate("/tourpage/bookingpage/ticket");
+  };
 
-
-  const handleCancel =  async(option)  => {
+  const handleCancel = async (option) => {
     const passengers = option.passengers || [];
     const myBookingId = option.bookingId;
 
@@ -114,16 +119,14 @@ function BookingTable() {
     // console.log("bookId", bookId);
     // // setUpBookId(option.bookingId);
     // console.log("UpbookId", bookId);
-    decreaseBookedCapacityCount(option.tourId,option.bookingId);
+    decreaseBookedCapacityCount(option.tourId, option.bookingId);
   };
 
-      // console.log("UpbookId", upBookId);
-
+  // console.log("UpbookId", upBookId);
 
   // useEffect(() => {
   //   console.log("upBookId in useEffect", upBookId);
   // }, [upBookId]);
-  
 
   // useEffect(() => {
   //   prevBookIdRef.current = bookId;
@@ -143,7 +146,7 @@ function BookingTable() {
   //   decreaseBookedCapacityCount(option.tourId);
   // };
 
-  const decreaseBookedCapacityCount = (id,bId) => {
+  const decreaseBookedCapacityCount = (id, bId) => {
     // setUpTourId(id);
     getCountFromTour(id);
     deleteBooking(bId);
@@ -187,7 +190,7 @@ function BookingTable() {
       });
   };
 
-  const deleteBooking = async(bId) => {
+  const deleteBooking = async (bId) => {
     // console.log("UpbookId in fetch", upBookId);
     if (window.confirm("Are you sure you want to cancel this booking?")) {
       // let JwtToken = localStorage.getItem("token");
@@ -267,7 +270,14 @@ function BookingTable() {
                       </span>
                     </td>
                     <td>
-                      <button className="my-btn my-btn-green">View</button>
+                      <button
+                        onClick={() => {
+                          handleView(option);
+                        }}
+                        className="my-btn my-btn-green"
+                      >
+                        View
+                      </button>
                     </td>
                     <td>
                       <button
@@ -302,7 +312,8 @@ function BookingTable() {
                         }
                         onClick={() => {
                           // setUpBookId(option.bookingId);
-                          handleCancel(option)}}
+                          handleCancel(option);
+                        }}
                       >
                         Cancel
                       </button>

@@ -5,8 +5,12 @@ import Signup from '../Signup/Signup';
 
 const SignupModal = ({ onClose }) => {
   return (
-    <Modal title=" " width={550} footer={null} open={true} onOk={onClose} onCancel={onClose}>
+    <Modal title="" width={550} footer={null} visible={true} onCancel={onClose} maskClosable>
+           <div onMouseLeave={onClose}>
         <Signup />
+        {/* <button onClick={onClose}>Close</button> */}
+      </div>
+        {/* <Signup /> */}
     </Modal>
   );
 };
