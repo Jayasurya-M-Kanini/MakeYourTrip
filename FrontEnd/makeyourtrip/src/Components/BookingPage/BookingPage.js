@@ -54,10 +54,13 @@ function BookingPage() {
   };
 
   const GetAllTours = () => {
+    
     fetch(`http://localhost:5246/api/TourDetails/${localStorage.getItem("tourId")}`, {
       method: "GET",
       headers: {
         accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
       },
     })
       .then(async (response) => {
@@ -108,6 +111,8 @@ function BookingPage() {
       method: "GET",
       headers: {
         accept: "text/plain",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
       },
     })
       .then(async (data) => {
@@ -220,12 +225,14 @@ function BookingPage() {
   const navigate = useNavigate();
 
   const MakeBooking = () => {
-  
+    console.log(booking);
     fetch("http://localhost:5027/api/Booking/AddBooking", {
       method: "POST",
       headers: {
         accept: "text/plain",
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
       },
       body: JSON.stringify({ ...booking }),
     })

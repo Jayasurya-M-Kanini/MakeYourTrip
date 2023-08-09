@@ -145,3 +145,12 @@
   color: #666;
   cursor: not-allowed;
 }
+
+
+.table{
+  background-color: gray;
+}
+
+.dropdown-menu.show{
+  max-height: 3rem;
+}

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using TourPackageMicroservice.Exceptions;
 using System;
 using TourPackageMicroService.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace TourPackageMicroservice.Controllers
 {
@@ -54,6 +56,8 @@ namespace TourPackageMicroservice.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "TravelAgent")]
+
         public async Task<ActionResult<Inclusions>> AddInclusion(Inclusions inclusion)
         {
             try
@@ -72,6 +76,8 @@ namespace TourPackageMicroservice.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "TravelAgent")]
+
         public async Task<ActionResult<Inclusions>> UpdateInclusion(Inclusions inclusion)
         {
             try
@@ -94,6 +100,8 @@ namespace TourPackageMicroservice.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "TravelAgent")]
+
         public async Task<ActionResult<Inclusions>> DeleteInclusion(int id)
         {
             try

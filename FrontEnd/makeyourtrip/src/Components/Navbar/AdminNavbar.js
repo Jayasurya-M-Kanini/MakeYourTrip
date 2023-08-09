@@ -48,23 +48,6 @@ function AdminNavbar() {
     setShowList(!showList);
   };
 
-  const items = [
-    {
-      label: "Profile",
-      key: "1",
-      path: "/first", // Add path property for the link
-    },
-    {
-      label: "Notifications",
-      key: "2",
-      path: "/second", // Add path property for the link
-    },
-    {
-      label: "Logout",
-      key: "3",
-      path: "/third", // Add path property for the link
-    },
-  ];
 
   const handleLoginButtonClick = () => {
     // setToggle(!toggle);
@@ -142,16 +125,21 @@ return (
           </Link>
         </li>
         <li>
-          <Link to="/" className="my-navbar-links scroll-link">
-            Users
+          <Link to="/TravellerDetails" className="my-navbar-links scroll-link">
+            Travellers
           </Link>
         </li>
         <li>
           <Link to="/AdminGallery" className="my-navbar-links scroll-link">
+          Upload
+          </Link>
+        </li>
+        <li>
+          <Link to="/AdminUploadedImages" className="my-navbar-links scroll-link">
             Gallery
           </Link>
         </li>
-        <div class="my-navbar-social-icons" style={{ marginLeft: isLoggedIn ? "15rem" : "10rem" }}>
+        <div class="my-navbar-social-icons" style={{ marginLeft: isLoggedIn ? "10rem" : "10rem" }}>
           <span>
             {isLoggedIn ? (
               <div

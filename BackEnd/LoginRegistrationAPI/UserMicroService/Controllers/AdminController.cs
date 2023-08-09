@@ -27,7 +27,7 @@ namespace UserMicroService.Controllers
         [HttpPost("Admin_Registration")]
         [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserDTO>> RegisterAdmin(AdminRegisterDTO userDTO)
         {
             try
@@ -56,7 +56,7 @@ namespace UserMicroService.Controllers
         [HttpGet("Admin_Profile")]
         [ProducesResponseType(typeof(Admin), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Admin>> AdminProfile(string key)
         {
             try
@@ -85,7 +85,7 @@ namespace UserMicroService.Controllers
         [HttpGet("View_All_TravelAgents")]
         [ProducesResponseType(typeof(ActionResult<ICollection<TravelAgent>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<TravelAgent>>> ViewAllTravelAgents()
         {
             try
@@ -175,7 +175,7 @@ namespace UserMicroService.Controllers
         [HttpGet("View_All_Travellers")]
         [ProducesResponseType(typeof(ActionResult<ICollection<Traveller>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Traveller>>> ViewAllTravellers()
         {
             try
@@ -203,7 +203,7 @@ namespace UserMicroService.Controllers
 
 
         [HttpPut("Update_TravelAgent_Status")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(ActionResult<StatusDTO>), StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<StatusDTO>> UpdateUserStatus(StatusDTO userApproval)
@@ -236,7 +236,7 @@ namespace UserMicroService.Controllers
         [HttpDelete("Delete_TravelAgent")]
         [ProducesResponseType(typeof(TravelAgent), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<TravelAgent>> DeleteTravelAgent(string key)
         {
             try

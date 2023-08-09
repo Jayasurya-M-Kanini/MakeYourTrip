@@ -7,6 +7,7 @@ namespace TourPackageMicroservice.Models
         [Key]
         public  int ExclusionId { get; set; }
         [Required]
+        [MaxLength(200)]
         public string? ExclusionDescription { get; set; }
         public ICollection<TourExclusion>? TourExclusion { get; set; }
 

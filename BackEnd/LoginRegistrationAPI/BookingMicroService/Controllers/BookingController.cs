@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BookingMicroService.Interfaces;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace BookingMicroService.Controllers
 {
@@ -23,6 +25,8 @@ namespace BookingMicroService.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(Booking), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Roles = "Traveller")]
+
         public async Task<ActionResult<Booking>> AddBooking(Booking booking)
         {
             var addedBooking = await _bookingService.AddBooking(booking);
@@ -35,6 +39,8 @@ namespace BookingMicroService.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ActionResult<Booking>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Traveller")]
+
         public async Task<ActionResult<Booking>> GetBoooking(int id)
         {
             var booking = await _bookingService.GetBooking(id);
@@ -47,6 +53,8 @@ namespace BookingMicroService.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ActionResult<ICollection<Booking>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Roles = "Traveller")]
+
         public async Task<ActionResult<ICollection<Booking>>> GetAllBookings()
         {
             var bookings = await _bookingService.GetAllBooking();
@@ -59,6 +67,8 @@ namespace BookingMicroService.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(ActionResult<Booking>), StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Roles = "Traveller")]
+
         public async Task<ActionResult<Booking>> UpdateBooking(Booking booking)
         {
             var updatedBooking = await _bookingService.UpdateBooking(booking);
@@ -71,6 +81,8 @@ namespace BookingMicroService.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(ActionResult<Booking>), StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Roles = "Traveller")]
+
         public async Task<ActionResult<Booking>> UpdateBookingStatus(BookingDTO bookingDTO)
         {
             var updatedBooking = await _bookingService.UpdateBookingStatus(bookingDTO);
@@ -83,6 +95,8 @@ namespace BookingMicroService.Controllers
         [HttpDelete]
         [ProducesResponseType(typeof(ActionResult<Booking>), StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Traveller")]
+
         public async Task<ActionResult<Booking>> DeleteBooking(int id)
         {
             var booking = await _bookingService.DeleteBooking(id);

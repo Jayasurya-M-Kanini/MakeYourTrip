@@ -19,6 +19,8 @@ function ApproveAgent() {
       method: "GET",
       headers: {
         accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
       },
     })
       .then(async (response) => {
@@ -42,6 +44,8 @@ function ApproveAgent() {
         accept: "text/plain",
         // Authorization: "Bearer " + JwtToken,
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
       },
       body: JSON.stringify({ ...update }),
     })
@@ -72,18 +76,20 @@ function ApproveAgent() {
   }, [update]);
 
   const handleDeleteAgent = (emailId) => {
+    console.log(emailId);
     if (window.confirm("Are you sure you want to delete this agent?")) {
       // let JwtToken = localStorage.getItem("token");
       fetch(
-        `http://localhost:5279/api/Admin/Delete_TravelAgent${encodeURIComponent(
-          emailId
-        )}`,
+        `http://localhost:5279/api/Admin/Delete_TravelAgent?key=${encodeURIComponent(
+          emailId)
+        }`,
         {
           method: "DELETE",
           headers: {
             accept: "text/plain",
             // Authorization: "Bearer " + JwtToken,
             "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }
       )
@@ -148,7 +154,7 @@ function ApproveAgent() {
                     className={`badge bg-${
                       agent.status === "Approved"
                         ? "success"
-                        : agent.status === "Pending"
+                        : agent.status === "UnApproved"
                         ? "warning"
                         : "danger"
                     }`}
@@ -170,8 +176,7 @@ function ApproveAgent() {
                     value={agent.status}
                   >
                     <option value="Approved">Approved</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Rejected">Rejected</option>
+                    <option value="UnApproved">UnApproved</option>
                   </select>
                 </td>
                 <td>

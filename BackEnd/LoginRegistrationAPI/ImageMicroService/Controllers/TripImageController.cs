@@ -1,9 +1,11 @@
 ﻿using ImageMicroService.Interfaces;
 using ImageMicroService.Models;
 using ImageMicroService.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace ImageMicroService.Controllers
 {
@@ -23,6 +25,8 @@ namespace ImageMicroService.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(TripImage), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Roles = "Admin")]
+
         public async Task<ActionResult<ICollection<TripImage>>> GetAllTripImages()
         {
             var tripImages = await _tripImageService.GetAllTripImages();
@@ -36,6 +40,8 @@ namespace ImageMicroService.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(TripImage), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Roles = "Admin")]
+
         public async Task<ActionResult<TripImage>> GetTripImage(int id)
         {
             var tripImage = await _tripImageService.GetTripImage(id);
@@ -49,6 +55,8 @@ namespace ImageMicroService.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(TripImage), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Roles = "Admin")]
+
         public async Task<ActionResult<TripImage>> DeleteTripImage(int id)
         {
             var deletedTripImage = await _tripImageService.DeleteTripImage(id);
@@ -62,6 +70,8 @@ namespace ImageMicroService.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(TripImage), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Roles = "Admin")]
+
         public async Task<ActionResult<TripImage>> AddTripImage([FromBody] TripImage tripImage)
         {
             var addedTripImage = await _tripImageService.AddTripImage(tripImage);
@@ -75,6 +85,8 @@ namespace ImageMicroService.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(TripImage), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Roles = "Admin")]
+
         public async Task<ActionResult<ITripImage>> UpdateTripImages(TripImage tripImage)
         {
             var tripImages = await _tripImageService.UpdateImage(tripImage);

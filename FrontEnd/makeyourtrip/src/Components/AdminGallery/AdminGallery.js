@@ -4,17 +4,37 @@ import { useEffect } from "react";
 import upload from "../images/Image upload-bro.png"
 import AdminNavbar from "../Navbar/AdminNavbar";
 import GalleryTable from "../GalleryImageTable/GalleryTable";
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Upload } from "antd";
+// import type { UploadFile } from "antd/es/upload/interface";
 
 const AdminGallery = () => {
-  const handleFileSelect = (event) => {
-    const file = event.target.files[0];
+
+
+  // const handleFileSelect = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     uploadToGoogleDrive(file);
+  //   }
+  // };
+
+  const [uploadedFile, setUploadedFile] = useState(null);
+
+  const handleFileSelect = (files) => {
+    const file = files[0];
     if (file) {
-      uploadToGoogleDrive(file);
+      setUploadedFile(file);
+    }
+  };
+
+  const handleUploadToDrive = () => {
+    if (uploadedFile) {
+      uploadToGoogleDrive(uploadedFile);
     }
   };
 
   const [imageData, setImageData] = useState({
-    categoryId: 4,
+    categoryId: 2,
     imageName: "",
     imageUrl: "",
   });
@@ -24,18 +44,16 @@ const AdminGallery = () => {
     if (imageData.imageName !== "" && imageData.imageUrl !== "") {
       addImageToDatabase();
     }
-  }, [imageData]);
+});
 
   const uploadToGoogleDrive = (file) => {
     const metadata = {
       name: file.name,
       mimeType: file.type,
-      parents: ["1reyXNH365TgTiSxc9lZp1ZTNJwFdp93T"],
+      parents: ["1e9ef7-WXM3_eUWurEO316ZNZUs6WszzW"],
     };
 
-    const accessToken =
-      "ya29.a0AfB_byBBKuM88zLHKMHae8E6rqdiaXj9S9AsaC7g_vRQxoIRWoaecDuygzdsbj4OSYTJMde0mvzeJzoaNjHQ4LQRdtkBMYltyEfuATv3CpyhfIWkPKLB1FkysKr54LLiobOy_YjjxTU7l2uKe9cD5vIu_juIaCgYKAWgSARMSFQHsvYls4zUtWjRzd0TGlQyR1t0yzg0163";
-
+    const accessToken ="ya29.a0AfB_byCS3FYL_CEHN1De2ZfnqDGaBzIrilW3yxX-nBoOKql1EppeAn-tQxZ5EytCzzpGCV0GWJdwxFT61YNSCyer8bqFoJexMq35JwbIFf6BeWzu27Dw95oxjVqQOoj7R6ZdNDkgSUJSpBAD-5vq2VFBG6zpJ7caCgYKAb8SARASFQHsvYlseJnxJ9gfNjr6SaF5UjK3AA0166"
     const form = new FormData();
     form.append(
       "metadata",
@@ -65,6 +83,9 @@ const AdminGallery = () => {
           imageUrl: "https://drive.google.com/uc?export=view&id=" + myData.id,
         });
         // toast.success("Image Uploaded Successfully");
+        if (imageData.imageName !== "" && imageData.imageUrl !== "") {
+          addImageToDatabase();
+        }
         // addImageToDatabase();
       })
       .catch((error) => {
@@ -74,11 +95,12 @@ const AdminGallery = () => {
 
   const addImageToDatabase = () => {
     console.log(imageData);
-    fetch("http://localhost:5007/api/TripImage", {
+    fetch("http://localhost:5133/api/TripImage", {
       method: "POST",
       headers: {
         accept: "text/plain",
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({ ...imageData, imageData: {} }),
     })
@@ -90,6 +112,7 @@ const AdminGallery = () => {
         console.log("Error:", err);
       });
   };
+
 
   return (
     <div className="uploadform">
@@ -108,20 +131,31 @@ const AdminGallery = () => {
           />
         </div>
         <div class="d-flex justify-content-center">
-          <div class="btn btn-primary btn-rounded">
-            <label class="form-label text-white m-1" for="customFile1">
-              Choose file
-            </label>
-            <input
-              type="file"
-              class="form-control d-none"
-              id="customFile1"
-              onChange={handleFileSelect}
-            />
-          </div>
+<div className="uploadform">
+      <Upload
+          customRequest={({ file }) => handleFileSelect([file])}
+          listType="picture"
+        maxCount={1}
+      >
+        <Button icon={<UploadOutlined />}>Select Image</Button>
+      </Upload>
+      <br />
+      {/* {imageData.imageUrl && (
+        <div className="d-flex justify-content-center">
+          <img
+            src={imageData.imageUrl}
+            alt={imageData.imageName}
+            style={{ maxWidth: "100%", marginTop: "20px" }}
+          />
+        </div>
+      )} */}
+      <Button onClick={handleUploadToDrive} type="primary">
+       Upload Selected Image
+          </Button>
+    </div>
         </div>
         <div style={{marginTop:"3rem"}}>
-            <GalleryTable/>
+            {/* <GalleryTable/> */}
         </div>
       </div>
       {/*  */}

@@ -19,7 +19,7 @@ const AdminProfilePage = () => {
           method: "GET",
           headers: {
             accept: "text/plain",
-            // Authorization: "Bearer " + localStorage.getItem("Token"),
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }).then(async (data) => {
           var myData = await data.json();

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPackageMicroService", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageMicroService", "ImageMicroService\ImageMicroService.csproj", "{184AC500-1496-4015-8F0D-D9A1A89C21C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feedback", "Feedback\Feedback.csproj", "{AD0BC3EB-3AB7-44AF-A8B1-629EB5918B18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feedback", "Feedback\Feedback.csproj", "{AD0BC3EB-3AB7-44AF-A8B1-629EB5918B18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{DEE01DE3-4DA7-422C-8A52-17B7D58B25AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{AD0BC3EB-3AB7-44AF-A8B1-629EB5918B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD0BC3EB-3AB7-44AF-A8B1-629EB5918B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD0BC3EB-3AB7-44AF-A8B1-629EB5918B18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEE01DE3-4DA7-422C-8A52-17B7D58B25AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEE01DE3-4DA7-422C-8A52-17B7D58B25AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEE01DE3-4DA7-422C-8A52-17B7D58B25AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEE01DE3-4DA7-422C-8A52-17B7D58B25AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

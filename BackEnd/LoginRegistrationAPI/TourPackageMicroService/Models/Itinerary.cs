@@ -16,6 +16,7 @@ namespace TourPackageMicroService.Models
         public TourDetails? Tour { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Day number must be a positive integer.")]
         public int DayNumber { get; set; }
 
         [Required]

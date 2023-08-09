@@ -110,6 +110,14 @@ function BookingTable() {
     navigate("/tourpage/bookingpage/ticket");
   };
 
+  
+  const handleFeedback = (option) => {
+    localStorage.setItem("bookingId", option.bookingId);
+    localStorage.setItem("tourId", option.tourId);
+    navigate("/Feedback");
+  };
+
+
   const handleCancel = async (option) => {
     const passengers = option.passengers || [];
     const myBookingId = option.bookingId;
@@ -231,7 +239,7 @@ function BookingTable() {
                 <th scope="col">Booking ID</th>
                 <th scope="col">Tour ID</th>
                 <th scope="col">Booking Date</th>
-                <th scope="col">Booking Status</th>
+                <th scope="col">Tour Status</th>
                 <th scope="col">View</th>
                 <th scope="col">Feedback</th>
                 <th scope="col">Cancel</th>
@@ -280,7 +288,10 @@ function BookingTable() {
                       </button>
                     </td>
                     <td>
-                      <button
+                      <button 
+                                     onClick={() => {
+                                      handleFeedback(option);
+                                    }}
                         className={`my-btn my-btn-blue ${
                           option.status !== "Completed" ? "disabled-btn" : ""
                         }`}

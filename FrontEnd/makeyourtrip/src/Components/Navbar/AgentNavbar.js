@@ -138,25 +138,25 @@ return (
         </li>
         <li>
           <Link to="/AddTours" className="my-navbar-links scroll-link">
+            Package
+          </Link>
+        </li>
+        <li>
+          <Link to="/AgentTours" className="my-navbar-links scroll-link">
             Tours
           </Link>
         </li>
         <li>
-          <Link to="" className="my-navbar-links scroll-link">
-            Packages
-          </Link>
-        </li>
-        <li>
-          <Link to="" className="my-navbar-links scroll-link">
+          <Link to="/AgentDestination" className="my-navbar-links scroll-link">
             Destinations
           </Link>
         </li>
-        <li>
-          <Link to="" className="my-navbar-links scroll-link">
+        {/* <li>
+          <Link to="/AgentImageUpload" className="my-navbar-links scroll-link">
             Upload
           </Link>
-        </li>
-        <div class="my-navbar-social-icons" style={{ marginLeft: isLoggedIn ? "10rem" : "10rem" }}>
+        </li> */}
+        <div class="my-navbar-social-icons" style={{ marginLeft: isLoggedIn ? "13rem" : "10rem" }}>
           <span>
             {isLoggedIn ? (
               <div

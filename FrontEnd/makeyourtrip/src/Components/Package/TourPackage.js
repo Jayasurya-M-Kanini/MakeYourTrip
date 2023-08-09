@@ -321,15 +321,7 @@ function TourPackage() {
           />
         </div>
         <div>
-          <label className="addTourInputLable">Destination ID</label>
-          {/* <input
-            type="number"
-            className="addTourInputField"
-            value={itinerary.destinationId}
-            onChange={(e) =>
-              handleInputChange(itineraryIndex, "destinationId", e.target.value)
-            }
-          /> */}
+          <label className="addTourInputLable">Destination </label>
           <select
             className="addTourInputField"
             value={destinations.destinationId}
@@ -402,19 +394,8 @@ function TourPackage() {
         <div className="tourDestinationDetails">
           <div>
             <label className="addTourInputLabel">Destination Id:</label>
-            {/* <input
-              type="number"
-              className="addTourInputField"
-              value={destination.destinationId}
-              onChange={(e) =>
-                handleTourDestinationChange(
-                  destinationIndex,
-                  "destinationId",
-                  e.target.value
-                )
-              }
-            /> */}
-                      <select
+
+          <select
             className="addTourInputField"
             value={destinations.destinationId}
             onChange={(e) =>
@@ -598,6 +579,8 @@ function TourPackage() {
       headers: {
         accept: "text/plain",
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
       },
       body: JSON.stringify({ ...tourPackage }),
     })
@@ -831,17 +814,7 @@ function TourPackage() {
         </div>
         <div className="inputLabelFlexContainer">
           <label className="addTourInputLabel">Cancellation Policy : </label>
-          {/* <input
-            className="addTourInputField"
-            type="text"
-            placeholder="Tour Name"
-            onChange={(e) =>
-              setTourPackage({
-                ...tourPackage,
-                cancellationPolicy: e.target.value,
-              })
-            }
-          /> */}
+
            <select
             className="addTourInputField"
             onChange={(e) =>

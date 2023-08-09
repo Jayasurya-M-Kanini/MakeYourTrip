@@ -35,7 +35,6 @@ namespace UserMicroService.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult<PasswordChangeDTO>> PasswordChange(PasswordChangeDTO Pass)
         {
             User result =await _user.UpdatePassword(Pass);

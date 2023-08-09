@@ -5,15 +5,15 @@ import "react-toastify/dist/ReactToastify.css";
 function GalleryTable() {
   const [images, setImages] = useState([]);
 
-  useEffect(() => {
-    getImageInfo();
-  }, []);
+
 
   const getImageInfo = () => {
-    fetch("http://localhost:5007/api/TripImage", {
+    fetch("http://localhost:5133/api/TripImage", {
       method: "GET",
       headers: {
         accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
       },
     })
       .then(async (response) => {
@@ -35,6 +35,7 @@ function GalleryTable() {
         headers: {
           accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
         .then(async (response) => {
@@ -51,6 +52,13 @@ function GalleryTable() {
     }
   };
 
+  useEffect(() => {
+    getImageInfo();
+  }, []);
+
+  const filteredImages = images.filter((image) => image.categoryId === 2);
+  console.log(filteredImages);
+
   return (
     <div>
       <div className="card-body">
@@ -64,11 +72,11 @@ function GalleryTable() {
               <th scope="col">Category ID</th>
               <th scope="col">Image Name</th>
               <th scope="col">Image Link</th>
-              <th scope="col">Actions</th>
+              {/* <th scope="col">Actions</th> */}
             </tr>
           </thead>
           <tbody>
-            {images.map((image) => (
+            {filteredImages.map((image) => (
               <tr key={image.imageId}>
                 <th scope="row">
                   <a href={`#${image.imageId}`}>{image.imageId}</a>
@@ -89,7 +97,7 @@ function GalleryTable() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     ></button>
-                    <ul
+                    {/* <ul
                       className="dropdown-menu"
                       aria-labelledby={`dropdownMenuButton-${image.imageId}`}
                     >
@@ -102,7 +110,7 @@ function GalleryTable() {
                           Delete
                         </a>
                       </li>
-                    </ul>
+                    </ul> */}
                   </div>
                 </td>
               </tr>

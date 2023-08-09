@@ -59,6 +59,8 @@ const changePaymentStatus=()=>{
       accept: "text/plain",
       // Authorization: "Bearer " + JwtToken,
       "Content-Type": "application/json",
+      // Authorization: "Bearer " + localStorage.getItem("token"),
+
     },
     body: JSON.stringify(updatePayment),
   })
@@ -82,6 +84,8 @@ const changeBookingStatus=()=>{
       accept: "text/plain",
       // Authorization: "Bearer " + JwtToken,
       "Content-Type": "application/json",
+      // Authorization: "Bearer " + localStorage.getItem("token"),
+
     },
     body: JSON.stringify(updateBooking),
   })
@@ -105,6 +109,8 @@ const changeBookedCount=()=>{
       accept: "text/plain",
       // Authorization: "Bearer " + JwtToken,
       "Content-Type": "application/json",
+      // Authorization: "Bearer " + localStorage.getItem("token"),
+
     },
     body: JSON.stringify(updateTour),
   })

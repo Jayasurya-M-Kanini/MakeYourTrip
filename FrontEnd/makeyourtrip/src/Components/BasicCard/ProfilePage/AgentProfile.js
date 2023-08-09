@@ -19,6 +19,8 @@ const AgentProfile = () => {
           method: "GET",
           headers: {
             accept: "text/plain",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+
             // Authorization: "Bearer " + localStorage.getItem("Token"),
           },
         }).then(async (data) => {

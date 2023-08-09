@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using TourPackageMicroservice.Models;
 using TourPackageMicroService.Interfaces;
 
@@ -49,6 +51,8 @@ namespace TourPackageMicroservice.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "TravelAgent")]
+
         public async Task<ActionResult<TourDetails>> AddTourDetails(TourDetails tourDetails)
         {
             try
@@ -67,6 +71,8 @@ namespace TourPackageMicroservice.Controllers
         }
 
         [HttpPut]
+        //[Authorize(Roles = "TravelAgent")]
+
         public async Task<ActionResult<TourDetails>> UpdateTourDetails(TourDetails tourDetails)
         {
             try
@@ -89,6 +95,8 @@ namespace TourPackageMicroservice.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "TravelAgent")]
+
         public async Task<ActionResult<TourDetails>> DeleteTourDetails(int id)
         {
             try

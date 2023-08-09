@@ -51,40 +51,40 @@
 
 // // export default DubaiHotelsMap;
 
-// import React from "react";
-// import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-// import L from "leaflet"; // Import leaflet library
-// import "leaflet/dist/leaflet.css"; // Import leaflet CSS (required)
-// import marker from '../Components/images/marker.png'
+import React from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet"; // Import leaflet library
+import "leaflet/dist/leaflet.css"; // Import leaflet CSS (required)
+import marker from '../Components/images/marker.png'
 
-// const App = () => {
-//   const customIcon = new L.Icon({
-//     iconUrl: marker, // Path to your custom icon image
-//     iconSize: [52, 52], // Set the size of the icon
-//     iconAnchor: [16, 32], // Set the anchor point of the icon (centered on bottom)
-//     popupAnchor: [0, -32], // Set the anchor point for the popup (above the icon)
-//   });
+const App = () => {
+  const customIcon = new L.Icon({
+    iconUrl: marker, // Path to your custom icon image
+    iconSize: [52, 52], // Set the size of the icon
+    iconAnchor: [16, 32], // Set the anchor point of the icon (centered on bottom)
+    popupAnchor: [0, -32], // Set the anchor point for the popup (above the icon)
+  });
 
-//   return (
-//     <MapContainer
-//       center={[13.0827, 80.2707]}
-//       zoom={13}
-//       style={{
-//         width: "50%",
-//         height: "500px",
-//         "margin-top": 50,
-//         "margin-left": 50,
-//       }}
-//     >
-//       <TileLayer
-//         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//       />
-//       <Marker position={[13.0827, 80.2707]} icon={customIcon}>
-//         <Popup>A marker displaying the location of Chennai, India</Popup>
-//       </Marker>
-//     </MapContainer>
-//   );
-// };
+  return (
+    <MapContainer
+      center={[13.0827, 80.2707]}
+      zoom={13}
+      style={{
+        width: "50%",
+        height: "500px",
+        "margin-top": 50,
+        "margin-left": 50,
+      }}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      />
+      <Marker position={[13.0827, 80.2707]} icon={customIcon}>
+        <Popup>A marker displaying the location of Chennai, India</Popup>
+      </Marker>
+    </MapContainer>
+  );
+};
 
-// export default App;
+export default App;

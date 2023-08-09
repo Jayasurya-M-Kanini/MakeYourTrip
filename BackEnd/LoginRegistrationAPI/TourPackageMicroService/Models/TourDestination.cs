@@ -18,8 +18,10 @@ public class TourDestination
     [JsonIgnore]
     public Destination? Destination { get; set; }
 
-    public string? Destinationimage { get; set; }
+    [MaxLength(300)]
+    public string? DestinationImage { get; set; }
 
+    [MaxLength(200)]
     public string? DestinationActivity { get; set; }
 
 }

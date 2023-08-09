@@ -105,3 +105,16 @@
     width: 100%;
     outline: none;
 }
+
+
+.TourPackage{
+  width:70%;
+  margin:auto;
+  margin-top: 2rem;
+  padding:0 1rem 1rem 1rem ;
+  box-shadow: var(--dark-shadow);
+}
+
+.tour-tab{
+  justify-content: center;
+}

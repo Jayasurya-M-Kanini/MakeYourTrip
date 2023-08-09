@@ -17,6 +17,7 @@ namespace TourPackageMicroService.Models
         public TourDetails? Tour { get; set; }
 
         [Required]
+        [MaxLength(100)]
         public string Location { get; set; }
         [Required]
         public DateTime PickupTime { get; set; }

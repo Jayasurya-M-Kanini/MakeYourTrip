@@ -27,7 +27,6 @@ namespace UserMicroService.Controllers
         [HttpPost("agent_Registration")]
         [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
         public async Task<ActionResult<UserDTO>> Registeragent(TravelAgentRegisterDTO userDTO)
         {
             try
@@ -56,7 +55,7 @@ namespace UserMicroService.Controllers
         [HttpGet("Agent_Profile")]
         [ProducesResponseType(typeof(TravelAgent), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = "TravelAgent")]
+        [Authorize(Roles = "TravelAgent")]
         public async Task<ActionResult<TravelAgent>> AgentProfile(string key)
         {
             try
@@ -85,7 +84,7 @@ namespace UserMicroService.Controllers
         [HttpPut("Update_Agent_Profile")]
         [ProducesResponseType(typeof(TravelAgent), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = "TravelAgent")]
+        [Authorize(Roles = "TravelAgent")]
         public async Task<ActionResult<UpdateDTO>> UpdateAgentProfile(UpdateDTO agent)
         {
             try
@@ -114,7 +113,7 @@ namespace UserMicroService.Controllers
         [HttpGet("Agency_Location")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = "TravelAgent")]
+        [Authorize(Roles = "TravelAgent")]
         public async Task<ActionResult<string>> GetAgencyCity(string key)
         {
             try

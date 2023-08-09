@@ -16,12 +16,15 @@ namespace TourPackageMicroService.Models
         public Itinerary? Itinerary { get; set; }
 
         [Required]
+        [MaxLength(50)]
         public string Timing { get; set; }
 
         [Required]
+        [MaxLength(100)]
         public string Activity { get; set; }
 
         [Required]
+        [MaxLength(100)]
         public string Place { get; set; }
 
     }

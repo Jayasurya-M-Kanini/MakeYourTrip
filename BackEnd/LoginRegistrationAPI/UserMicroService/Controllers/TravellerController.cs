@@ -26,7 +26,7 @@ namespace UserMicroService.Controllers
         [HttpPost("Traveller_Registration")]
         [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
+        
         public async Task<ActionResult<UserDTO>> RegisterTraveller(TravellerRegisterDTO userDTO)
         {
             try
@@ -56,7 +56,7 @@ namespace UserMicroService.Controllers
         [HttpGet("Traveller_Profile")]
         [ProducesResponseType(typeof(Traveller), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = "Traveller")]
+        [Authorize(Roles = "Traveller")]
         public async Task<ActionResult<Traveller>> TravellerProfile(string key)
         {
             try
@@ -85,7 +85,7 @@ namespace UserMicroService.Controllers
         [HttpPut("Update_Traveller_Profile")]
         [ProducesResponseType(typeof(Traveller), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = "Traveller")]
+        [Authorize(Roles = "Traveller")]
         public async Task<ActionResult<TravellerUpdateDTO>> UpdateTravellerProfile(TravellerUpdateDTO Traveller)
         {
             try
@@ -115,7 +115,6 @@ namespace UserMicroService.Controllers
         [HttpGet("Search_Agent_for_Traveller")]
         [ProducesResponseType(typeof(TravelAgent), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
         public async Task<ActionResult<ICollection<TravelAgent>>> SearchByNameForTraveller(string name)
         {
             try

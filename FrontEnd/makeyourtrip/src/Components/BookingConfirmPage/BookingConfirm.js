@@ -5,6 +5,7 @@ import '../Navbar/Navbar'
 import Navbar from '../Navbar/Navbar';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import emailjs from '@emailjs/browser'
 
 const BookingConfirm = () => {
     const quantity=localStorage.getItem("quantity");
@@ -23,6 +24,8 @@ const BookingConfirm = () => {
           method: "GET",
           headers: {
             accept: "text/plain",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+
             // Authorization: "Bearer " + localStorage.getItem("Token"),
           },
         }).then(async (data) => {
@@ -47,6 +50,8 @@ const BookingConfirm = () => {
           method: "GET",
           headers: {
             accept: "text/plain",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+
             // Authorization: "Bearer " + localStorage.getItem("Token"),
           },
         }).then(async (data) => {
@@ -61,13 +66,15 @@ const BookingConfirm = () => {
       useEffect(()=>{
         GetAllDestinations();
       },[destinations])
-
+      const userEmail="suryashanmugam637@gmail.com"
       var GetBooking = () => {
         console.log(booking);
         fetch(`http://localhost:5027/api/Booking/GetBoooking?id=${bookingId}`, {
           method: "GET",
           headers: {
             accept: "text/plain",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+
             // Authorization: "Bearer " + localStorage.getItem("Token"),
           },
         }).then(async (data) => {
@@ -141,6 +148,30 @@ const handleDownloadPDF = () => {
 
         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
         pdf.save('booking_ticket.pdf');
+
+        const templateParams = {
+          to_email: userEmail,
+          message: `Dear Customer,\n \n Your payment has been successfully processed. \n Please find the attached payment receipt and your ticket. \n Thank you for choosing our service.`,
+          image1_url:
+            "https://img.freepik.com/free-vector/colorless-text-travel-background_23-2148056667.jpg?w=740&t=st=1691518860~exp=1691519460~hmac=cf14c637d0bb49ff4785afdd2c3c64f6c3b1c453dcf347e09cf23483a662a5d4", // Replace with actual image UR),
+        };
+  
+        emailjs
+          .send(
+            "service_bebdz98",
+            "template_l836dmz",
+            templateParams,
+  
+            "tM4-6HV_ZFHjMEazV"
+          )
+          .then((response) => {
+            console.log(userEmail);
+            console.log("Email sent!", response.text);
+          })
+          .catch((error) => {
+            console.error("Error sending email:", error);
+          });
+
         setPdfDownloading(false); // Reset flag after download
       })
       .catch((error) => {
